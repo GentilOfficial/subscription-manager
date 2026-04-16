@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Subet — Subscription Manager
 
-## Getting Started
+Subet is a modern, high-performance web application designed to help you regain control of your recurring expenses. Built with **Next.js 16**, **Tailwind CSS v4**, and **Supabase**, it offers a premium user experience with a focus on speed, aesthetics, and meaningful financial insights.
 
-First, run the development server:
 
+## 🚀 Key Features
+
+- **Intuitive Dashboard**: A Bento Grid-powered overview of your monthly burn rate and upcoming renewals.
+- **Interactive Analytics**: Visualise your spending distribution by category using dynamic charts powered by Recharts.
+- **Smart Icons**: Automatic favicon fetching for your services using Unavatar, with intelligent fallbacks.
+- **Bulk Import**: Seamlessly migrate your data from other platforms via CSV import.
+- **Responsive "Floating Island" Navbar**: A state-of-the-art navigation experience that adapts gracefully to any device.
+- **Dark Mode Native**: Fully optimized for both light and dark environments with smooth transitions.
+- **Semantic Theme System**: Built on Tailwind v4 variables for effortless skinning and consistent branding.
+
+## 🛠 Tech Stack
+
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router & Turbopack)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
+- **State Management**: [Zustand](https://github.com/pmndrs/zustand)
+- **Database & Auth**: [Supabase](https://supabase.com/)
+- **Charts**: [Recharts](https://recharts.org/)
+- **Themes**: [next-themes](https://github.com/pacocoursey/next-themes)
+- **Icons**: Lucide & Custom SVG System
+
+## 🏁 Getting Started
+
+### 1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/yourusername/subscription-manager.git
+cd subscription-manager
 ```
 
+### 2. Install dependencies
+```bash
+npm install
+```
+
+### 3. Environment Setup
+Create a `.env.local` file in the root directory and add your Supabase credentials:
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
+```
+
+### 4. Database Initialization
+Run the provided SQL schema in your Supabase SQL Editor:
+- [supabase_schema.sql](file:///Users/federico/Documents/GitHub/Projects/subscription-manager/supabase_schema.sql)
+
+### 5. Start the development server
+```bash
+npm run dev
+```
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 📁 Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `/app`: Next.js App Router pages and layouts.
+- `/app/components`: Reusable UI components and page sections.
+- `/app/config`: Centralized content and site configuration (`content.js`, `site.js`).
+- `/stores`: Zustand stores for global state management.
+- `/public`: Static assets and icons.
 
-## Learn More
+## 📄 License
 
-To learn more about Next.js, take a look at the following resources:
+This project is open-source and available under the [MIT License](LICENSE).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+Developed with ❤️ by Federico.

@@ -1,65 +1,70 @@
-import Image from "next/image";
+"use client";
+
+import Link from "next/link";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import ThemeToggle from "./components/ThemeToggle";
+import { useAuthStore } from "../stores/auth";
+import { landing } from "./config/content";
 
 export default function Home() {
+  const router = useRouter();
+  const { user, isLoading } = useAuthStore();
+
+  // If already authenticated, skip the landing page
+  useEffect(() => {
+    if (!isLoading && user) {
+      router.replace("/dashboard");
+    }
+  }, [user, isLoading, router]);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.js file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <main className="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden text-app-text dark:text-app-text-dark selection:bg-primary-muted selection:text-primary">
+      <div className="absolute top-6 right-6 z-50">
+        <ThemeToggle />
+      </div>
+
+      {/* Background gradients */}
+      <div className="absolute top-[-10%] left-[-10%] w-[800px] h-[800px] bg-primary/20 dark:bg-primary/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] pointer-events-none animate-blob" />
+      <div className="absolute top-[20%] right-[-10%] w-[800px] h-[800px] bg-accent/20 dark:bg-accent/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] pointer-events-none animate-blob animation-delay-2000" />
+      <div className="absolute bottom-[-20%] left-[20%] w-[800px] h-[800px] bg-amber-500/20 dark:bg-amber-500/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] pointer-events-none animate-blob animation-delay-4000" />
+
+      <div className="relative z-10 text-center max-w-4xl mx-auto flex flex-col items-center">
+
+        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200/50 dark:border-white/10 bg-app-surface/50 dark:bg-app-surface-dark/50 backdrop-blur-xl shadow-sm mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
+          <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+          <span className="text-sm font-bold tracking-widest uppercase text-app-text-muted">{landing.badge}</span>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+        <h1 className="text-[5rem] sm:text-[7rem] md:text-[9rem] leading-[0.85] font-extrabold tracking-tighter mb-8 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-100 mix-blend-normal text-app-text dark:text-app-text-dark">
+          {landing.headingLine1} <br className="hidden sm:block" />
+          <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent pb-4">{landing.headingHighlight}</span>
+        </h1>
+
+        <p className="text-xl md:text-2xl text-app-text-muted mb-12 max-w-2xl mx-auto font-medium leading-relaxed animate-in fade-in slide-in-from-bottom-8 duration-700 delay-200">
+          {landing.subtitle}
+        </p>
+
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
+          <Link
+            href="/login"
+            className="px-10 py-5 bg-app-text dark:bg-app-text-dark hover:bg-primary dark:hover:bg-primary text-app-bg dark:text-app-bg-dark border border-transparent dark:hover:border-transparent font-extrabold tracking-wide rounded-full text-lg transition-all shadow-[0_20px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_40px_rgba(255,255,255,0.1)] hover:shadow-[0_20px_40px_rgba(234,88,12,0.3)] hover:-translate-y-2 active:translate-y-0 active:scale-95 group flex items-center gap-3 w-full sm:w-auto justify-center"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            {landing.ctaPrimary}
+            <span className="group-hover:translate-x-1 transition-transform opacity-60">→</span>
+          </Link>
+          <Link
+            href="/login"
+            className="px-10 py-5 bg-app-surface/70 dark:bg-white/5 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 hover:bg-app-surface dark:hover:bg-white/10 text-app-text dark:text-app-text-dark font-bold tracking-wide rounded-full text-lg transition-all hover:-translate-y-2 active:translate-y-0 active:scale-95 w-full sm:w-auto text-center"
           >
-            Documentation
-          </a>
+            {landing.ctaSecondary}
+          </Link>
         </div>
-      </main>
-    </div>
+      </div>
+
+      {/* Decorative Floating Elements */}
+      <div className="absolute top-[15%] left-[10%] w-24 h-24 bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-3xl border border-white/50 dark:border-white/10 shadow-2xl skew-x-12 animate-in spin-in-12 duration-1000 delay-500 pointer-events-none hidden lg:block" />
+      <div className="absolute bottom-[20%] right-[15%] w-32 h-32 bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-full border border-white/50 dark:border-white/10 shadow-2xl -skew-y-12 animate-in spin-in-[-12] duration-1000 delay-700 pointer-events-none hidden lg:block" />
+    </main>
   );
 }
