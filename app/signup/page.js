@@ -17,7 +17,7 @@ export default function SignUpPage() {
   }, [user, isLoading, router]);
 
   return (
-    <main className="min-h-screen flex items-center justify-center p-6 relative bg-app-bg dark:bg-app-bg-dark text-app-text dark:text-app-text-dark selection:bg-primary-muted selection:text-primary">
+    <main className="min-h-screen flex items-center justify-center p-6 relative overflow-x-hidden bg-app-bg dark:bg-app-bg-dark text-app-text dark:text-app-text-dark selection:bg-primary-muted selection:text-primary">
       {/* Background gradients */}
       <div className="absolute top-[10%] left-[20%] w-[600px] h-[600px] bg-primary/20 dark:bg-primary/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] pointer-events-none animate-pulse duration-[10s]" />
       <div className="absolute bottom-[10%] right-[20%] w-[600px] h-[600px] bg-accent/20 dark:bg-accent/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] pointer-events-none" />
