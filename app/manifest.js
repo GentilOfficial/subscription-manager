@@ -1,4 +1,4 @@
-import site from './site';
+import site from './config/site';
 
 export default function manifest() {
   return {
