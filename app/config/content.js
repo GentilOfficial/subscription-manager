@@ -27,7 +27,7 @@ export const login = {
   passwordPlaceholder: '••••••••',
   submitButton: 'Sign In',
   submittingButton: 'Signing in…',
-  defaultError: 'Invalid credentials. Please try again.',
+  defaultError: 'The credentials provided are incorrect. Please try again.',
   noAccount: "Don't have an account?",
   signUpLink: 'Create one',
 };
@@ -35,21 +35,10 @@ export const login = {
 // ─── Sign-up page ────────────────────────────────────────
 export const signup = {
   brand: site.name,
-  heading: 'Create Account',
-  subtitle: 'Start tracking your subscriptions today.',
-  emailLabel: 'Email',
-  emailPlaceholder: 'you@domain.com',
-  passwordLabel: 'Password',
-  passwordPlaceholder: '••••••••',
-  confirmPasswordLabel: 'Confirm Password',
-  confirmPasswordPlaceholder: '••••••••',
-  submitButton: 'Create Account',
-  submittingButton: 'Creating account…',
-  defaultError: `Account creation is currently unavailable. If you are interested in using the service, please reach out at ${site.contactEmail}.`,
-  passwordMismatch: 'Passwords do not match.',
-  successMessage: 'Account created! Check your email to confirm, then sign in.',
-  hasAccount: 'Already have an account?',
-  signInLink: 'Sign in',
+  disabledHeading: 'Invite Only',
+  disabledSubtitle: 'Registration is currently managed via direct invites.',
+  contactMessage: `If you were expecting an invite or wish to request access, please contact us at ${site.contactEmail}`,
+  backToLogin: 'Back to Login',
 };
 
 // ─── Dashboard layout / navbar ───────────────────────────
@@ -146,4 +135,3 @@ export const csvImport = {
   successMessage: (count) => `Successfully imported ${count} subscriptions!`,
   errorMessage: 'Failed to parse the CSV file. Please ensure it follows the required format.',
 };
-

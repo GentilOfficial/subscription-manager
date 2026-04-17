@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useAuthStore } from "../../stores/auth";
 import { login } from "../config/content";
 
@@ -10,7 +10,7 @@ export default function LoginPage() {
   const router = useRouter();
   const { signIn, user, isLoading } = useAuthStore();
 
-  // Se già autenticato, vai subito alla dashboard
+  // If already authenticated, redirect to dashboard
   useEffect(() => {
     if (!isLoading && user) {
       router.replace('/dashboard');
@@ -31,7 +31,7 @@ export default function LoginPage() {
       await signIn(email, password);
       router.push("/dashboard");
     } catch (err) {
-      setError(err.message ?? login.defaultError);
+      setError(login.defaultError);
     } finally {
       setIsSubmitting(false);
     }
@@ -39,42 +39,23 @@ export default function LoginPage() {
 
   return (
     <main className="min-h-screen flex items-center justify-center p-6 relative overflow-x-hidden bg-app-bg dark:bg-app-bg-dark text-app-text dark:text-app-text-dark selection:bg-primary-muted selection:text-primary">
-      {/* Background gradients */}
-      <div className="absolute top-[10%] right-[20%] w-[600px] h-[600px] bg-primary/20 dark:bg-primary/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] pointer-events-none animate-pulse duration-[10s]" />
-      <div className="absolute bottom-[10%] left-[20%] w-[600px] h-[600px] bg-accent/20 dark:bg-accent/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] pointer-events-none" />
-
       <div className="relative z-10 w-full max-w-lg mb-20">
         <div className="text-center mb-12">
-          <Link
-            href="/"
-            className="inline-block text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent mb-6"
-          >
+          <Link href="/" className="inline-block text-2xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent mb-6">
             {login.brand}
           </Link>
-          <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tighter mb-4">
-            {login.heading}
-          </h2>
-          <p className="text-lg text-app-text-muted font-medium">
-            {login.subtitle}
-          </p>
+          <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tighter mb-4">{login.heading}</h2>
+          <p className="text-lg text-app-text-muted font-medium">{login.subtitle}</p>
         </div>
-
         <div className="bg-app-surface/70 dark:bg-app-surface-dark/60 backdrop-blur-3xl border border-white/50 dark:border-white/5 p-10 sm:p-12 rounded-[3.5rem] shadow-[0_40px_80px_rgba(0,0,0,0.05)] dark:shadow-[0_40px_80px_rgba(0,0,0,0.2)] animate-in slide-in-from-bottom-8 duration-700 relative overflow-hidden">
-          <div className="absolute -top-40 -left-40 w-80 h-80 bg-primary/10 rounded-full blur-[60px] pointer-events-none" />
-
           <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-            {/* Error banner */}
             {error && (
               <div className="px-5 py-4 bg-accent-muted border border-accent/20 rounded-2xl text-sm font-semibold text-accent-dark dark:text-accent animate-in fade-in duration-300">
                 {error}
               </div>
             )}
-
             <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-bold tracking-wide text-app-text-muted mb-3"
-              >
+              <label htmlFor="email" className="block text-sm font-bold tracking-wide text-app-text-muted mb-3">
                 {login.emailLabel}
               </label>
               <input
@@ -88,12 +69,8 @@ export default function LoginPage() {
                 placeholder={login.emailPlaceholder}
               />
             </div>
-
             <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-bold tracking-wide text-app-text-muted mb-3"
-              >
+              <label htmlFor="password" className="block text-sm font-bold tracking-wide text-app-text-muted mb-3">
                 {login.passwordLabel}
               </label>
               <input
@@ -107,7 +84,6 @@ export default function LoginPage() {
                 placeholder={login.passwordPlaceholder}
               />
             </div>
-
             <button
               type="submit"
               disabled={isSubmitting}
@@ -126,17 +102,14 @@ export default function LoginPage() {
               )}
             </button>
           </form>
-
-          {/* Link to signup */}
-          <p className="text-center mt-8 text-sm text-app-text-muted font-medium relative z-10">
-            {login.noAccount}{" "}
-            <Link
-              href="/signup"
-              className="font-bold text-primary dark:text-primary-light hover:text-primary-light transition-colors"
-            >
-              {login.signUpLink}
-            </Link>
-          </p>
+          <div className="flex flex-col gap-4 mt-8 relative z-10">
+            <p className="text-center text-sm text-app-text-muted font-medium">
+              {login.noAccount}{" "}
+              <Link href="/signup" className="font-bold text-primary dark:text-primary-light hover:text-primary-light transition-colors">
+                {login.signUpLink}
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </main>

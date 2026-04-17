@@ -24,10 +24,6 @@ export default function Home() {
         <ThemeToggle />
       </div>
 
-      {/* Background gradients */}
-      <div className="absolute top-[-10%] left-[-10%] w-[800px] h-[800px] bg-primary/20 dark:bg-primary/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] pointer-events-none animate-blob" />
-      <div className="absolute top-[20%] right-[-10%] w-[800px] h-[800px] bg-accent/20 dark:bg-accent/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] pointer-events-none animate-blob animation-delay-2000" />
-      <div className="absolute bottom-[-20%] left-[20%] w-[800px] h-[800px] bg-amber-500/20 dark:bg-amber-500/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] pointer-events-none animate-blob animation-delay-4000" />
 
       <div className="relative z-10 text-center max-w-4xl mx-auto flex flex-col items-center">
 

@@ -159,9 +159,6 @@ export default function DashboardLayout({ children }) {
 
       {/* Main Content Area */}
       <main className="flex-1 w-full pt-32 pb-16 px-4 md:px-8 relative overflow-hidden z-10">
-        {/* Subtle background glow */}
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/20 dark:bg-primary/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[100px] pointer-events-none -translate-y-1/2 translate-x-1/4 animate-pulse duration-[10s]" />
-        <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-accent/10 dark:bg-accent/5 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] pointer-events-none translate-y-1/2 -translate-x-1/4" />
         <div className="mx-auto max-w-7xl">{children}</div>
       </main>
     </div>
