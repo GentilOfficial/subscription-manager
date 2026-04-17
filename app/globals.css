@@ -12,13 +12,21 @@
   /* Semantic Aliases */
   --color-primary: var(--color-brand-600);
   --color-primary-light: var(--color-brand-500);
-  --color-primary-muted: color-mix(in srgb, var(--color-brand-500), transparent 90%);
+  --color-primary-muted: color-mix(
+    in srgb,
+    var(--color-brand-500),
+    transparent 90%
+  );
 
-  --color-accent: #f43f5e;
+  --color-accent: #e12e1d;
   /* Rose 500 */
-  --color-accent-dark: #e11d48;
+  --color-accent-dark: #b72315;
   /* Rose 600 */
-  --color-accent-muted: color-mix(in srgb, var(--color-accent), transparent 90%);
+  --color-accent-muted: color-mix(
+    in srgb,
+    var(--color-accent),
+    transparent 90%
+  );
   /* Rose 500 / 0.1 */
 
   /* Application Surfaces */
@@ -41,11 +49,12 @@
 }
 
 body {
-  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-family:
+    ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
 }
 
 @layer utilities {
-
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
@@ -73,7 +82,6 @@ body {
     background: color-mix(in srgb, currentColor 30%, transparent);
   }
 }
-
 
 @keyframes fade-in {
   from {
