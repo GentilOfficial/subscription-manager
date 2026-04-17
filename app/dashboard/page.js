@@ -2,10 +2,10 @@
 
 import { useEffect, useMemo } from 'react';
 import { useSubscriptionStore } from '../../stores/subscriptions';
-import JumboBlock from '../components/dashboard/JumboBlock';
 import AccentBlock from '../components/dashboard/AccentBlock';
-import ChartBlock from '../components/dashboard/ChartBlock';
 import ActivityBlock from '../components/dashboard/ActivityBlock';
+import ChartBlock from '../components/dashboard/ChartBlock';
+import JumboBlock from '../components/dashboard/JumboBlock';
 import { overview } from '../config/content';
 
 export default function DashboardOverview() {
@@ -70,7 +70,7 @@ export default function DashboardOverview() {
   }, [subscriptions]);
 
   if (isLoading) {
-    return <div className="text-app-text dark:text-app-text-dark font-medium text-lg mt-10">{overview.loadingText}</div>;
+    return null
   }
 
   return (

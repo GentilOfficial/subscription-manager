@@ -67,8 +67,7 @@ export const navbar = {
 export const overview = {
   greeting: "Hello, ",
   greetingName: (name) => name,
-  subtitle: (monthYear) => `Your subscription pulse for ${monthYear}.`,
-  loadingText: 'Initializing space...',
+  subtitle: (monthYear) => `Your subscription pulse for ${monthYear}.`
 };
 
 // ─── Dashboard blocks ────────────────────────────────────
@@ -104,7 +103,6 @@ export const subscriptions = {
   exportCsv: 'Export CSV',
   importCsv: 'Import CSV',
   addNew: 'Add New',
-  loading: 'Initializing space...',
   emptyTitle: 'Silent Space',
   emptyMessage: "You haven't initialized any subscription records in this logical view yet.",
   emptyCta: 'Initiate Block',

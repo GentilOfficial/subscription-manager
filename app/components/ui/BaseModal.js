@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function BaseModal({
   isOpen,
@@ -10,13 +10,24 @@ export default function BaseModal({
   maxWidth = 'max-w-lg',
   showCloseButton = true
 }) {
+  // Disable body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      const originalStyle = window.getComputedStyle(document.body).overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = originalStyle;
+      };
+    }
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 pb-20">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-app-text-dark/60 dark:bg-app-bg-dark/80 backdrop-blur-md animate-in fade-in duration-300"
+        className="absolute inset-0 bg-slate-900/70 dark:bg-black/90 backdrop-blur-2xl animate-in fade-in duration-300"
         onClick={onClose}
       ></div>
 

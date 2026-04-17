@@ -1,12 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSubscriptionStore } from "../../../stores/subscriptions";
 import CsvImportModal from "../../components/CsvImportModal";
-import { exportCsv } from "../../utils/exportCsv";
 import SubscriptionCard from "../../components/subscriptions/SubscriptionCard";
 import SubscriptionModal from "../../components/subscriptions/SubscriptionModal";
 import { subscriptions as content } from "../../config/content";
+import { exportCsv } from "../../utils/exportCsv";
 
 import Button from "../../components/ui/Button";
 
@@ -83,7 +83,7 @@ export default function SubscriptionsPage() {
   const filteredSubs = filter === 'All' ? subscriptions : subscriptions.filter(s => s.category === filter);
 
   if (isLoading) {
-    return <div className="text-app-text dark:text-app-text-dark font-medium text-lg mt-10">{content.loading}</div>;
+    return null
   }
 
   return (
