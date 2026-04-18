@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import ThemeToggle from "./components/ThemeToggle";
+import { useEffect } from "react";
 import { useAuthStore } from "../stores/auth";
+import ThemeToggle from "./components/ThemeToggle";
 import { landing } from "./config/content";
 
 export default function Home() {
@@ -47,7 +47,9 @@ export default function Home() {
             className="px-10 py-5 bg-app-text dark:bg-app-text-dark hover:bg-primary dark:hover:bg-primary text-app-bg dark:text-app-bg-dark border border-transparent dark:hover:border-transparent font-extrabold tracking-wide rounded-full text-lg transition-all shadow-[0_20px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_40px_rgba(255,255,255,0.1)] hover:shadow-[0_20px_40px_rgba(234,88,12,0.3)] hover:-translate-y-2 active:translate-y-0 active:scale-95 group flex items-center gap-3 w-full sm:w-auto justify-center"
           >
             {landing.ctaPrimary}
-            <span className="group-hover:translate-x-1 transition-transform opacity-60">→</span>
+            <span className="group-hover:translate-x-1 transition-transform opacity-60">
+              <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </span>
           </Link>
           <Link
             href="/login"
