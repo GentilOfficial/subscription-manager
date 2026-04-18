@@ -14,6 +14,11 @@ export const metadata = {
   description: site.description,
 };
 
+export const viewport = {
+  themeColor: "#09090b",
+};
+
+
 export default function RootLayout({ children }) {
   return (
     <html
