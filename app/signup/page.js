@@ -38,7 +38,7 @@ export default function SignUpPage() {
               {signup.disabledSubtitle}
             </p>
           </div>
-          <div className="bg-app-surface/70 dark:bg-app-surface-dark/60 backdrop-blur-3xl border border-white/50 dark:border-white/5 p-10 sm:p-12 rounded-[3.5rem] shadow-2xl animate-in fade-in duration-700">
+          <div className="bg-app-surface/70 dark:bg-app-surface-dark/60 backdrop-blur-3xl border border-black/5 dark:border-white/5 p-10 sm:p-12 rounded-[3.5rem] shadow-2xl animate-in fade-in duration-700">
             <div className="text-center space-y-6">
               <p className="text-app-text-muted">{signup.contactMessage}</p>
               <Link

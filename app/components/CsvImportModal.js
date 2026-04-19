@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from 'react';
-import { useSubscriptionStore } from '../../stores/subscriptions';
-import { csvImport } from '../config/content';
+import { useSubscriptionStore } from '@/stores/subscriptions';
+import { useToast } from '@/app/context/ToastContext';
+import { csvImport, notifications } from '../config/content';
 import BaseModal from './ui/BaseModal';
 import Button from './ui/Button';
 
 export default function CsvImportModal({ isOpen, onClose }) {
+  const { addToast } = useToast();
   const importSubscriptions = useSubscriptionStore((state) => state.importSubscriptions);
   const [file, setFile] = useState(null);
   const [isParsing, setIsParsing] = useState(false);
@@ -14,8 +16,6 @@ export default function CsvImportModal({ isOpen, onClose }) {
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
-
-  // Skip the parsing logic here as it's unchanged - just showing the component structure change
 
   const robustParseCsv = (text) => {
     const result = [];
@@ -64,7 +64,6 @@ export default function CsvImportModal({ isOpen, onClose }) {
           throw new Error("Empty file");
         }
 
-        // Check if first row is header
         let startIndex = 0;
         const firstRow = rows[0].map(c => c.toLowerCase());
         if (firstRow.includes('name') || firstRow.includes('price')) {
@@ -74,7 +73,7 @@ export default function CsvImportModal({ isOpen, onClose }) {
         const parsedSubs = [];
         for (let i = startIndex; i < rows.length; i++) {
           const row = rows[i];
-          if (row.length < 2) continue; // Need at least name and price
+          if (row.length < 2) continue;
 
           const [name, price, interval, category, status, renewalDate] = row;
 
@@ -91,14 +90,14 @@ export default function CsvImportModal({ isOpen, onClose }) {
 
         if (parsedSubs.length > 0) {
           await importSubscriptions(parsedSubs);
-          alert(csvImport.successMessage(parsedSubs.length));
+          addToast(notifications.success.import(parsedSubs.length), 'success');
         } else {
-          alert("No valid subscriptions found in the file.");
+          addToast(csvImport.noSubscriptions, 'warning');
         }
         onClose();
       } catch (err) {
         console.error('Failed to parse CSV file:', err);
-        alert(csvImport.errorMessage);
+        addToast(notifications.error.import, 'error');
       } finally {
         setIsParsing(false);
       }
@@ -149,7 +148,7 @@ export default function CsvImportModal({ isOpen, onClose }) {
             disabled={!file || isParsing}
             className="flex-1"
           >
-            {isParsing ? 'Parsing...' : csvImport.importButton}
+            {isParsing ? csvImport.parsing : csvImport.importButton}
           </Button>
         </div>
       </div>

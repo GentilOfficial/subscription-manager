@@ -2,7 +2,6 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recha
 import { blocks } from '../../config/content';
 import GlassCard from '../ui/GlassCard';
 
-// Warm color palette for Recharts
 const COLORS = ['#ea580c', '#fb923c', '#e11d48', '#fbbf24', '#f43f5e', '#d97706', '#be123c', '#9a3412'];
 
 const CustomTooltip = ({ active, payload }) => {

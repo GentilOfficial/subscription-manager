@@ -10,7 +10,6 @@ export default function BaseModal({
   maxWidth = 'max-w-lg',
   showCloseButton = true
 }) {
-  // Disable body scroll when modal is open
   useEffect(() => {
     if (isOpen) {
       const originalStyle = window.getComputedStyle(document.body).overflow;
@@ -25,16 +24,13 @@ export default function BaseModal({
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 pb-20">
-      {/* Backdrop */}
       <div
         className="absolute inset-0 bg-slate-900/70 dark:bg-black/90 backdrop-blur-2xl animate-in fade-in duration-300"
         onClick={onClose}
       ></div>
 
-      {/* Modal Container */}
       <div className={`relative w-full ${maxWidth} max-h-[85vh] flex flex-col bg-app-bg dark:bg-app-surface-dark border border-slate-200 dark:border-white/10 rounded-[2.5rem] shadow-[0_40px_80px_rgba(0,0,0,0.1)] dark:shadow-[0_40px_80px_rgba(0,0,0,0.4)] overflow-hidden animate-in fade-in zoom-in-95 duration-300 z-10`}>
 
-        {/* Header */}
         {(title || showCloseButton) && (
           <div className="px-8 py-6 border-b border-slate-200/50 dark:border-white/5 flex justify-between items-center bg-app-surface/50 dark:bg-white/5 shrink-0">
             {title && (
@@ -56,7 +52,6 @@ export default function BaseModal({
           </div>
         )}
 
-        {/* Content */}
         <div className="flex-1 overflow-y-auto custom-scrollbar">
           {children}
         </div>

@@ -2,6 +2,7 @@
 
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
+import { theme as content } from "../config/content"
 
 export default function ThemeToggle() {
   const { theme, setTheme } = useTheme()
@@ -17,16 +18,14 @@ export default function ThemeToggle() {
     )
   }
 
+  const nextTheme = theme === "system" ? "dark" : theme === "dark" ? "light" : "system";
+
   return (
     <button
-      onClick={() =>
-        setTheme(
-          theme === "system" ? "dark" : theme === "dark" ? "light" : "system",
-        )
-      }
+      onClick={() => setTheme(nextTheme)}
       className="p-2 bg-app-bg dark:bg-app-surface-dark text-app-text-muted rounded-xl hover:bg-slate-200 dark:hover:bg-white/10 transition-colors"
-      aria-label="Toggle Theme"
-      title={`Switch to ${theme === "system" ? "dark" : theme === "dark" ? "light" : "system"} mode`}
+      aria-label={content.toggleLabel}
+      title={content.switchMode(nextTheme)}
     >
       {theme === "dark" ? (
         <svg

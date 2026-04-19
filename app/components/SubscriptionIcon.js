@@ -6,26 +6,21 @@ export default function SubscriptionIcon({ name, color, className = "w-12 h-12 r
   const [imgFailed, setImgFailed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Reset states when name changes (for component reuse)
   useEffect(() => {
     setImgFailed(false);
     setIsLoading(true);
   }, [name]);
 
-  // Attempt to build a clean domain name
   const getDomainFrom = (subName) => {
     if (!subName) return "";
     let domain = subName.toLowerCase().trim();
     
-    // Remove common suffixes to get the core brand
     domain = domain.replace(/\s+(premium|plus|pro|plan|family|cloud|app|subscription|service)/g, '');
     
-    // If it already looks like a domain, return it
     if (domain.includes('.') && !domain.includes(' ')) {
       return domain;
     }
     
-    // Remove spaces and special chars
     domain = domain.replace(/[^a-z0-9]/g, '');
     
     return `${domain}.com`;

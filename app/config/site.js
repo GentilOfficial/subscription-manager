@@ -1,7 +1,3 @@
-/**
- * Global site configuration.
- * Single source of truth for branding and metadata.
- */
 const site = {
   name: 'Subet',
   description: 'Track your monthly expenses',

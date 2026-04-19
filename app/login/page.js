@@ -11,7 +11,6 @@ export default function LoginPage() {
   const router = useRouter()
   const { signIn, user, isLoading } = useAuthStore()
 
-  // If already authenticated, redirect to dashboard
   useEffect(() => {
     if (!isLoading && user) {
       router.replace("/dashboard")
@@ -59,7 +58,7 @@ export default function LoginPage() {
               {login.subtitle}
             </p>
           </div>
-          <div className="bg-app-surface/70 dark:bg-app-surface-dark/60 backdrop-blur-3xl border border-white/50 dark:border-white/5 p-10 sm:p-12 rounded-[3.5rem] shadow-[0_40px_80px_rgba(0,0,0,0.05)] dark:shadow-[0_40px_80px_rgba(0,0,0,0.2)] animate-in slide-in-from-bottom-8 duration-700 relative overflow-hidden">
+          <div className="bg-app-surface/70 dark:bg-app-surface-dark/60 backdrop-blur-3xl border border-black/5 dark:border-white/5 p-10 sm:p-12 rounded-[3.5rem] shadow-[0_40px_80px_rgba(0,0,0,0.05)] dark:shadow-[0_40px_80px_rgba(0,0,0,0.2)] animate-in slide-in-from-bottom-8 duration-700 relative overflow-hidden">
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               {error && (
                 <div className="px-5 py-4 bg-accent-muted border border-accent/20 rounded-2xl text-sm font-semibold text-accent-dark dark:text-accent animate-in fade-in duration-300">

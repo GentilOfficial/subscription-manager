@@ -3,13 +3,11 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Core brand palette */
   --color-brand-400: #fb923c;
   --color-brand-500: #f97316;
   --color-brand-600: #ea580c;
   --color-brand-700: #c2410c;
 
-  /* Semantic Aliases */
   --color-primary: var(--color-brand-600);
   --color-primary-light: var(--color-brand-500);
   --color-primary-muted: color-mix(
@@ -19,31 +17,22 @@
   );
 
   --color-accent: #e12e1d;
-  /* Rose 500 */
   --color-accent-dark: #b72315;
-  /* Rose 600 */
   --color-accent-muted: color-mix(
     in srgb,
     var(--color-accent),
     transparent 90%
   );
-  /* Rose 500 / 0.1 */
 
-  /* Application Surfaces */
   --color-app-bg: #f8fafc;
-  /* Slate 50 */
   --color-app-bg-dark: #09090b;
 
   --color-app-surface: #ffffff;
   --color-app-surface-dark: #18181b;
 
-  /* Text & Content */
   --color-app-text: #0f172a;
-  /* Slate 900 */
   --color-app-text-muted: #64748b;
-  /* Slate 500 */
   --color-app-text-dark: #f8fafc;
-  /* Slate 50 */
 
   --font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
 }

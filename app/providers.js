@@ -2,6 +2,8 @@
 
 import { ThemeProvider } from "next-themes";
 import { useEffect } from "react";
+import { ToastProvider } from "@/app/context/ToastContext";
+import ToastContainer from "@/app/components/ui/ToastContainer";
 import { useAuthStore } from "../stores/auth";
 
 function AuthInitializer() {
@@ -14,9 +16,12 @@ function AuthInitializer() {
 
 export default function Providers({ children }) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <AuthInitializer />
-      {children}
-    </ThemeProvider>
+    <ToastProvider>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <AuthInitializer />
+        {children}
+        <ToastContainer />
+      </ThemeProvider>
+    </ToastProvider>
   );
 }

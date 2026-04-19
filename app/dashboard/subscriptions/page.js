@@ -5,12 +5,14 @@ import { useSubscriptionStore } from "../../../stores/subscriptions";
 import CsvImportModal from "../../components/CsvImportModal";
 import SubscriptionCard from "../../components/subscriptions/SubscriptionCard";
 import SubscriptionModal from "../../components/subscriptions/SubscriptionModal";
-import { subscriptions as content } from "../../config/content";
+import { useToast } from "@/app/context/ToastContext";
+import { subscriptions as content, notifications } from "../../config/content";
 import { exportCsv } from "../../utils/exportCsv";
 
 import Button from "../../components/ui/Button";
 
 export default function SubscriptionsPage() {
+  const { addToast } = useToast();
   const {
     subscriptions,
     isLoading,
@@ -26,11 +28,9 @@ export default function SubscriptionsPage() {
 
   const [filter, setFilter] = useState('All');
 
-  // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
 
-  // Editing State
   const [editingId, setEditingId] = useState(null);
   const [editingData, setEditingData] = useState(null);
 
@@ -61,23 +61,39 @@ export default function SubscriptionsPage() {
   };
 
   const handleSave = async (subData) => {
-    if (editingId) {
-      await updateSubscription(editingId, subData);
-    } else {
-      await addSubscription(subData);
+    try {
+      if (editingId) {
+        await updateSubscription(editingId, subData);
+        addToast(notifications.success.update, 'success');
+      } else {
+        await addSubscription(subData);
+        addToast(notifications.success.add, 'success');
+      }
+      closeModal();
+    } catch (error) {
+      addToast(editingId ? notifications.error.update : notifications.error.add, 'error');
     }
-    closeModal();
   };
 
   const handleDelete = async () => {
     if (editingId) {
-      await deleteSubscription(editingId);
-      closeModal();
+      try {
+        await deleteSubscription(editingId);
+        addToast(notifications.success.delete, 'success');
+        closeModal();
+      } catch (error) {
+        addToast(notifications.error.delete, 'error');
+      }
     }
   };
 
   const handleExportCsv = () => {
-    exportCsv(subscriptions);
+    try {
+      exportCsv(subscriptions);
+      addToast(notifications.success.export, 'success');
+    } catch (error) {
+      addToast(notifications.error.export, 'error');
+    }
   };
 
   const filteredSubs = filter === 'All' ? subscriptions : subscriptions.filter(s => s.category === filter);
@@ -124,7 +140,6 @@ export default function SubscriptionsPage() {
           </div>
         </header>
 
-        {/* Filters */}
         <div className="flex gap-3 pt-2 px-6 pb-6 overflow-x-auto custom-scrollbar">
           {[content.filterAll, ...content.categories].map((cat, i) => (
             <button
@@ -140,7 +155,6 @@ export default function SubscriptionsPage() {
           ))}
         </div>
 
-        {/* Grid Container */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mt-4">
           {filteredSubs.map((sub) => (
             <SubscriptionCard key={sub.id} sub={sub} onClick={() => openEditModal(sub)} />

@@ -1,11 +1,5 @@
 import site from './site';
 
-/**
- * All user-facing text content, organised by page / component.
- * Import what you need: `import { landing } from '@/app/config/content'`
- */
-
-// ─── Landing page ────────────────────────────────────────
 export const landing = {
   badge: `${site.name} ${site.version}`,
   headingLine1: 'Own your',
@@ -16,7 +10,6 @@ export const landing = {
   ctaSecondary: 'Sign In',
 };
 
-// ─── Login page ──────────────────────────────────────────
 export const login = {
   brand: site.name,
   heading: 'Restricted Access',
@@ -32,7 +25,6 @@ export const login = {
   signUpLink: 'Create one',
 };
 
-// ─── Sign-up page ────────────────────────────────────────
 export const signup = {
   brand: site.name,
   disabledHeading: 'Invite Only',
@@ -41,7 +33,6 @@ export const signup = {
   backToLogin: 'Back to Login',
 };
 
-// ─── Dashboard layout / navbar ───────────────────────────
 export const navbar = {
   logoLabel: site.name[0],
   links: {
@@ -52,14 +43,14 @@ export const navbar = {
   loading: 'Loading…',
 };
 
-// ─── Dashboard overview ──────────────────────────────────
 export const overview = {
   greeting: "Hello, ",
   greetingName: (name) => name,
-  subtitle: (monthYear) => `Your subscription pulse for ${monthYear}.`
+  subtitle: (monthYear) => `Your subscription pulse for ${monthYear}.`,
+  syncError: 'Sync Error',
+  retrySync: 'Retry Sync',
 };
 
-// ─── Dashboard blocks ────────────────────────────────────
 export const blocks = {
   jumbo: {
     title: 'Monthly Burn Rate',
@@ -73,6 +64,7 @@ export const blocks = {
     days: (n) => `${n} day${n !== 1 ? 's' : ''}`,
     noPayments: 'No upcoming payments.',
     noPaymentsSub: "You're all clear.",
+    dateLabel: 'Date',
   },
   chart: {
     title: 'Category Distribution',
@@ -85,7 +77,6 @@ export const blocks = {
   },
 };
 
-// ─── Subscriptions page ──────────────────────────────────
 export const subscriptions = {
   heading: 'Your Subs',
   subtitle: 'Complete overview of your active commitments and structural costs.',
@@ -99,7 +90,6 @@ export const subscriptions = {
   filterAll: 'All',
 };
 
-// ─── Subscription modal ─────────────────────────────────
 export const modal = {
   createTitle: 'Add Subscription',
   editTitle: 'Edit Subscription',
@@ -111,6 +101,17 @@ export const modal = {
   renewalLabel: 'Next Renewal',
   categoryLabel: 'Classification',
   statusLabel: 'State',
+  colorLabel: 'Visual Identity',
+  intervals: {
+    weekly: 'Weekly',
+    monthly: 'Monthly',
+    yearly: 'Yearly',
+  },
+  statuses: {
+    active: 'Active',
+    paused: 'Paused',
+    cancelled: 'Cancelled',
+  },
   deleteButton: 'Delete',
   cancelButton: 'Discard',
   saveButton: 'Save',
@@ -119,10 +120,13 @@ export const modal = {
     emptyName: 'Service Name cannot be empty.',
     invalidPrice: 'Price must be a valid positive number.',
     noRenewal: 'Renewal date is required.',
+    noCategory: 'Please select a category.',
+    noInterval: 'Please select a billing cycle.',
+    noStatus: 'Please select a status.',
+    noColor: 'Please select a brand color.',
   },
 };
 
-// ─── CSV Import modal ───────────────────────────────────
 export const csvImport = {
   title: 'Import CSV',
   description: 'Upload a',
@@ -130,8 +134,47 @@ export const csvImport = {
   descriptionSuffix: 'file to bulk import your subscription records into the dashboard.',
   selectFile: 'Select CSV File',
   dragDrop: 'Click or drag & drop here',
+  noSubscriptions: 'No valid subscriptions found in the file.',
+  parsing: 'Parsing...',
   cancelButton: 'Cancel',
   importButton: 'Import',
   successMessage: (count) => `Successfully imported ${count} subscriptions!`,
   errorMessage: 'Failed to parse the CSV file. Please ensure it follows the required format.',
+};
+
+export const theme = {
+  toggleLabel: 'Toggle Theme',
+  switchMode: (mode) => `Switch to ${mode} mode`,
+};
+
+export const notifications = {
+  success: {
+    add: 'Subscription added successfully!',
+    update: 'Subscription updated successfully!',
+    delete: 'Subscription removed successfully!',
+    import: (count) => `Successfully imported ${count} subscriptions!`,
+    export: 'Data exported successfully!',
+  },
+  error: {
+    add: 'Failed to add subscription.',
+    update: 'Failed to update subscription.',
+    delete: 'Failed to remove subscription.',
+    import: 'Failed to parse the CSV file. Please check the format.',
+    export: 'Failed to export data.',
+    generic: 'Something went wrong. Please try again.',
+  },
+};
+
+export const common = {
+  errors: {
+    domainRequired: 'Domain required',
+  },
+};
+
+export const notFound = {
+  title: '404 - Page Not Found',
+  heading: '404',
+  subtitle: 'This page does not exist.',
+  description: "The address might be incorrect, or the page has been moved or deleted.",
+  backHome: 'Back to Home',
 };

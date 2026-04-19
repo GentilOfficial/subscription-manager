@@ -14,7 +14,6 @@ export default function AccentBlock({ upcomingSubs = [] }) {
             <p className="text-white/80 font-medium text-lg">{blocks.accent.noPayments}<br />{blocks.accent.noPaymentsSub}</p>
           </div>
         ) : upcomingSubs.length === 1 ? (
-          /* Original Hero Layout for Single Item */
           <div className="flex flex-col gap-1">
             <SubscriptionIcon name={upcomingSubs[0].name} color={upcomingSubs[0].color} className="w-16 h-16 rounded-2xl mb-4 shadow-xl ring-2 ring-white/20" />
             <p className="text-3xl font-extrabold tracking-tight mb-1">{upcomingSubs[0].name}</p>
@@ -28,7 +27,7 @@ export default function AccentBlock({ upcomingSubs = [] }) {
                 </p>
               </div>
               <div className="text-right opacity-80">
-                <p className="text-xs font-bold uppercase tracking-widest mb-1">Date</p>
+                <p className="text-xs font-bold uppercase tracking-widest mb-1">{blocks.accent.dateLabel}</p>
                 <p className="font-bold">
                   {new Date(upcomingSubs[0].nextRenewalDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                 </p>
@@ -36,7 +35,6 @@ export default function AccentBlock({ upcomingSubs = [] }) {
             </div>
           </div>
         ) : (
-          /* List Layout for Multiple Items */
           <div className="flex flex-col gap-5 animate-in fade-in slide-in-from-bottom-4 duration-500">
             {upcomingSubs.map((sub, i) => (
               <div 

@@ -57,7 +57,6 @@ export default function DashboardLayout({ children }) {
     }
   }, [user, isLoading, router])
 
-  // Mostra uno spinner mentre verifica la sessione
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-app-bg dark:bg-app-bg-dark">
@@ -89,12 +88,10 @@ export default function DashboardLayout({ children }) {
     )
   }
 
-  // Non renderizzare nulla se non autenticato (il redirect è già in corso)
   if (!user) return null
 
   return (
     <div className="flex flex-col min-h-screen bg-app-bg dark:bg-app-bg-dark text-app-text dark:text-app-text-dark font-sans selection:bg-primary-muted selection:text-primary">
-      {/* Floating Island Topbar */}
       <div className="fixed top-4 md:top-6 left-0 right-0 z-[60] flex justify-center px-2 sm:px-4 pointer-events-none">
         <nav className="pointer-events-auto flex items-center gap-1 sm:gap-2 p-1.5 bg-app-surface/70 dark:bg-app-surface-dark/70 backdrop-blur-2xl border border-slate-200/50 dark:border-white/10 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] max-w-full overflow-hidden">
           <Link
@@ -157,7 +154,6 @@ export default function DashboardLayout({ children }) {
         </nav>
       </div>
 
-      {/* Main Content Area */}
       <main className="flex-1 w-full pt-32 pb-16 px-4 md:px-8 relative overflow-hidden">
         <div className="mx-auto max-w-7xl">{children}</div>
       </main>

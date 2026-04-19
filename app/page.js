@@ -11,7 +11,6 @@ export default function Home() {
   const router = useRouter();
   const { user, isLoading } = useAuthStore();
 
-  // If already authenticated, skip the landing page
   useEffect(() => {
     if (!isLoading && user) {
       router.replace("/dashboard");
@@ -24,9 +23,7 @@ export default function Home() {
         <ThemeToggle />
       </div>
 
-
       <div className="relative z-10 text-center max-w-4xl mx-auto flex flex-col items-center">
-
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-slate-200/50 dark:border-white/10 bg-app-surface/50 dark:bg-app-surface-dark/50 backdrop-blur-xl shadow-sm mb-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
           <span className="text-sm font-bold tracking-widest uppercase text-app-text-muted">{landing.badge}</span>
@@ -60,9 +57,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Decorative Floating Elements */}
-      <div className="absolute top-[15%] left-[10%] w-24 h-24 bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-3xl border border-white/50 dark:border-white/10 shadow-2xl skew-x-12 animate-in spin-in-12 duration-1000 delay-500 pointer-events-none hidden lg:block" />
-      <div className="absolute bottom-[20%] right-[15%] w-32 h-32 bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-full border border-white/50 dark:border-white/10 shadow-2xl -skew-y-12 animate-in spin-in-[-12] duration-1000 delay-700 pointer-events-none hidden lg:block" />
+      <div className="absolute top-[15%] left-[10%] w-24 h-24 bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-3xl border border-black/5 dark:border-white/10 shadow-2xl skew-x-12 animate-in spin-in-12 duration-1000 delay-500 pointer-events-none hidden lg:block" />
+      <div className="absolute bottom-[20%] right-[15%] w-32 h-32 bg-white/60 dark:bg-white/5 backdrop-blur-2xl rounded-full border border-black/5 dark:border-white/10 shadow-2xl -skew-y-12 animate-in spin-in-[-12] duration-1000 delay-700 pointer-events-none hidden lg:block" />
     </main>
   );
 }

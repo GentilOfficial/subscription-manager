@@ -5,7 +5,7 @@ import React from 'react';
 export default function GlassCard({ children, className = '', ...props }) {
   return (
     <div
-      className={`bg-app-surface/70 dark:bg-app-surface-dark/60 backdrop-blur-3xl border border-white/50 dark:border-white/5 rounded-[2.5rem] shadow-[0_20px_40px_rgb(0,0,0,0.03)] dark:shadow-[0_20px_40px_rgb(0,0,0,0.15)] shadow-[inset_0_1px_rgba(255,255,255,0.4)] dark:shadow-[inset_0_1px_rgba(255,255,255,0.05)] relative overflow-hidden group transition-all duration-500 ${className}`}
+      className={`bg-app-surface/70 dark:bg-app-surface-dark/60 backdrop-blur-3xl border border-black/5 dark:border-white/5 rounded-[2.5rem] shadow-[0_20px_40px_rgb(0,0,0,0.03)] dark:shadow-[0_20px_40px_rgb(0,0,0,0.15)] shadow-[inset_0_1px_rgba(255,255,255,0.4)] dark:shadow-[inset_0_1px_rgba(255,255,255,0.05)] relative overflow-hidden group transition-all duration-500 ${className}`}
       {...props}
     >
 

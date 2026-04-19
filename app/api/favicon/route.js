@@ -1,3 +1,4 @@
+import { common } from '@/app/config/content';
 import { NextResponse } from 'next/server';
 
 export async function GET(request) {
@@ -5,10 +6,9 @@ export async function GET(request) {
   const domain = searchParams.get('domain');
 
   if (!domain) {
-    return new NextResponse('Domain required', { status: 400 });
+    return new NextResponse(common.errors.domainRequired, { status: 400 });
   }
 
-  // Try multiple providers
   const providers = [
     `https://www.google.com/s2/favicons?domain=${domain}&sz=128`
   ];

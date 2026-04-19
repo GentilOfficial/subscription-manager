@@ -4,6 +4,15 @@ import { modal, subscriptions as subContent } from '../../config/content';
 import BaseModal from '../ui/BaseModal';
 import Button from '../ui/Button';
 
+const AVAILABLE_COLORS = [
+  'bg-orange-500',
+  'bg-red-500',
+  'bg-amber-500',
+  'bg-teal-500',
+  'bg-indigo-500',
+  'bg-slate-700'
+];
+
 export default function SubscriptionModal({ 
   isOpen, 
   onClose, 
@@ -18,7 +27,7 @@ export default function SubscriptionModal({
     interval: 'Monthly',
     status: 'Active',
     category: 'Other',
-    color: 'bg-primary',
+    color: AVAILABLE_COLORS[Math.floor(Math.random() * AVAILABLE_COLORS.length)],
     renewalDate: new Date().toISOString().split('T')[0]
   });
   const [formError, setFormError] = useState('');
@@ -34,8 +43,7 @@ export default function SubscriptionModal({
           interval: 'Monthly',
           status: 'Active',
           category: 'Other',
-          // Generate a random color for new item as fallback if not handled externally
-          color: ['bg-orange-500', 'bg-rose-500', 'bg-amber-500', 'bg-primary', 'bg-teal-500', 'bg-indigo-500', 'bg-slate-700'][Math.floor(Math.random() * 7)],
+          color: AVAILABLE_COLORS[Math.floor(Math.random() * AVAILABLE_COLORS.length)],
           renewalDate: new Date().toISOString().split('T')[0]
         });
       }
@@ -52,6 +60,18 @@ export default function SubscriptionModal({
     }
     if (!formData.renewalDate) {
       return modal.errors.noRenewal;
+    }
+    if (!formData.category || formData.category === '') {
+      return modal.errors.noCategory;
+    }
+    if (!formData.interval || formData.interval === '') {
+      return modal.errors.noInterval;
+    }
+    if (!formData.status || formData.status === '') {
+      return modal.errors.noStatus;
+    }
+    if (!formData.color || formData.color === '') {
+      return modal.errors.noColor;
     }
     return null;
   };
@@ -123,9 +143,9 @@ export default function SubscriptionModal({
                 onChange={(e) => setFormData({...formData, interval: e.target.value})}
                 className="w-full px-5 py-4 bg-app-surface dark:bg-app-bg-dark border border-slate-200 dark:border-white/10 rounded-2xl text-base text-app-text dark:text-app-text-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all appearance-none font-medium cursor-pointer text-center sm:text-left"
               >
-                <option value="Weekly">Weekly</option>
-                <option value="Monthly">Monthly</option>
-                <option value="Yearly">Yearly</option>
+                <option value="Weekly">{modal.intervals.weekly}</option>
+                <option value="Monthly">{modal.intervals.monthly}</option>
+                <option value="Yearly">{modal.intervals.yearly}</option>
               </select>
             </div>
           </div>
@@ -160,10 +180,28 @@ export default function SubscriptionModal({
                 onChange={(e) => setFormData({...formData, status: e.target.value})}
                 className="w-full px-5 py-4 bg-app-surface dark:bg-app-bg-dark border border-slate-200 dark:border-white/10 rounded-2xl text-base text-app-text dark:text-app-text-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all appearance-none font-medium cursor-pointer text-center sm:text-left"
               >
-                <option value="Active">Active</option>
-                <option value="Paused">Paused</option>
-                <option value="Cancelled">Cancelled</option>
+                <option value="Active">{modal.statuses.active}</option>
+                <option value="Paused">{modal.statuses.paused}</option>
+                <option value="Cancelled">{modal.statuses.cancelled}</option>
               </select>
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-bold tracking-wide text-app-text-muted mb-4">{modal.colorLabel}</label>
+            <div className="flex flex-wrap gap-4">
+              {AVAILABLE_COLORS.map((color) => (
+                <button
+                  key={color}
+                  type="button"
+                  onClick={() => setFormData({ ...formData, color })}
+                  className={`w-10 h-10 rounded-full transition-all duration-300 transform hover:scale-110 ${color} ${
+                    formData.color === color 
+                      ? 'ring-4 ring-offset-4 ring-primary dark:ring-offset-app-surface-dark' 
+                      : 'opacity-70 hover:opacity-100'
+                  }`}
+                />
+              ))}
             </div>
           </div>
 

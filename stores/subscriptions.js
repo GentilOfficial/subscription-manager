@@ -79,6 +79,7 @@ export const useSubscriptionStore = create((set, get) => ({
     } catch (e) {
       console.error('Failed to add subscription:', e);
       set({ subscriptions: previousSubs, error: e.message });
+      throw e;
     }
   },
 
@@ -99,6 +100,7 @@ export const useSubscriptionStore = create((set, get) => ({
     } catch (e) {
       console.error('Failed to update subscription:', e);
       set({ subscriptions: previousSubs, error: e.message });
+      throw e;
     }
   },
 
@@ -119,6 +121,7 @@ export const useSubscriptionStore = create((set, get) => ({
     } catch (e) {
       console.error('Failed to delete subscription:', e);
       set({ subscriptions: previousSubs, error: e.message });
+      throw e;
     }
   },
 
@@ -142,6 +145,7 @@ export const useSubscriptionStore = create((set, get) => ({
     } catch (e) {
       console.error('Failed to import subscriptions:', e);
       set({ error: e.message });
+      throw e;
     }
   }
 }));

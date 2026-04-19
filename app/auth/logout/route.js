@@ -4,7 +4,6 @@ import { NextResponse } from 'next/server'
 export async function POST(request) {
   const supabase = supabaseServer()
 
-  // Check if session exists before signing out
   const { data: { session } } = await supabase.auth.getSession()
 
   if (session) {
@@ -16,7 +15,6 @@ export async function POST(request) {
   })
 }
 
-// Support GET for simple links if needed, though POST is safer
 export async function GET(request) {
     return POST(request)
 }
