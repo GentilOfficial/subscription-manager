@@ -3,15 +3,9 @@ import { useEffect, useState } from 'react';
 import { modal, subscriptions as subContent } from '../../config/content';
 import BaseModal from '../ui/BaseModal';
 import Button from '../ui/Button';
+import { ALLOWED_COLORS, validateSubscription } from '@/app/utils/subscriptionValidation';
 
-const AVAILABLE_COLORS = [
-  'bg-orange-500',
-  'bg-red-500',
-  'bg-amber-500',
-  'bg-teal-500',
-  'bg-indigo-500',
-  'bg-slate-700'
-];
+const AVAILABLE_COLORS = ALLOWED_COLORS;
 
 export default function SubscriptionModal({ 
   isOpen, 
@@ -52,28 +46,7 @@ export default function SubscriptionModal({
   }, [isOpen, initialData]);
 
   const validateForm = () => {
-    if (!formData.name || formData.name.trim() === '') {
-      return modal.errors.emptyName;
-    }
-    if (formData.price === '' || isNaN(formData.price) || Number(formData.price) < 0) {
-      return modal.errors.invalidPrice;
-    }
-    if (!formData.renewalDate) {
-      return modal.errors.noRenewal;
-    }
-    if (!formData.category || formData.category === '') {
-      return modal.errors.noCategory;
-    }
-    if (!formData.interval || formData.interval === '') {
-      return modal.errors.noInterval;
-    }
-    if (!formData.status || formData.status === '') {
-      return modal.errors.noStatus;
-    }
-    if (!formData.color || formData.color === '') {
-      return modal.errors.noColor;
-    }
-    return null;
+    return validateSubscription(formData, modal.errors);
   };
 
   const handleSubmit = (e) => {
@@ -115,6 +88,7 @@ export default function SubscriptionModal({
               type="text" 
               value={formData.name}
               onChange={(e) => setFormData({...formData, name: e.target.value})}
+              maxLength={25}
               className="w-full px-5 py-4 bg-app-surface dark:bg-app-bg-dark border border-slate-200 dark:border-white/10 rounded-2xl text-base text-app-text dark:text-app-text-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all placeholder:text-app-text-muted/50 font-medium"
               placeholder={modal.namePlaceholder}
             />

@@ -6,6 +6,7 @@ import { useToast } from '@/app/context/ToastContext';
 import { csvImport, notifications } from '../config/content';
 import BaseModal from './ui/BaseModal';
 import Button from './ui/Button';
+import { normalizeSubscription } from '@/app/utils/subscriptionValidation';
 
 export default function CsvImportModal({ isOpen, onClose }) {
   const { addToast } = useToast();
@@ -77,15 +78,16 @@ export default function CsvImportModal({ isOpen, onClose }) {
 
           const [name, price, interval, category, status, renewalDate] = row;
 
-          parsedSubs.push({
-            name: name || 'Unnamed Subscription',
-            price: parseFloat(price) || 0,
-            interval: interval || 'Monthly',
-            category: category || 'Other',
-            status: status || 'Active',
-            renewalDate: renewalDate || new Date().toISOString().split('T')[0],
-            color: 'bg-primary'
+          const normalized = normalizeSubscription({
+            name,
+            price,
+            interval,
+            category,
+            status,
+            renewalDate
           });
+
+          parsedSubs.push(normalized);
         }
 
         if (parsedSubs.length > 0) {

@@ -78,7 +78,7 @@ export const blocks = {
 };
 
 export const subscriptions = {
-  heading: 'Your Subs',
+  heading: 'Your Subscriptions',
   subtitle: 'Complete overview of your active commitments and structural costs.',
   exportCsv: 'Export CSV',
   importCsv: 'Import CSV',
@@ -118,6 +118,7 @@ export const modal = {
   createButton: 'Add',
   errors: {
     emptyName: 'Service Name cannot be empty.',
+    nameTooLong: 'Service Name must be at most 25 characters.',
     invalidPrice: 'Price must be a valid positive number.',
     noRenewal: 'Renewal date is required.',
     noCategory: 'Please select a category.',
