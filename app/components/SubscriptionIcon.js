@@ -1,34 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export default function SubscriptionIcon({ name, color, className = "w-12 h-12 rounded-xl text-lg shrink-0" }) {
+export default function SubscriptionIcon({ name, color, className = "w-12 h-12 rounded-2xl text-lg shrink-0" }) {
   const [imgFailed, setImgFailed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const imgRef = useRef(null);
 
   useEffect(() => {
     setImgFailed(false);
     setIsLoading(true);
+
+    if (imgRef.current?.complete) {
+      setIsLoading(false);
+    }
   }, [name]);
 
-  const getDomainFrom = (subName) => {
-    if (!subName) return "";
-    let domain = subName.toLowerCase().trim();
-    
-    domain = domain.replace(/\s+(premium|plus|pro|plan|family|cloud|app|subscription|service)/g, '');
-    
-    if (domain.includes('.') && !domain.includes(' ')) {
-      return domain;
-    }
-    
-    domain = domain.replace(/[^a-z0-9]/g, '');
-    
-    return `${domain}.com`;
-  };
-
-  const domain = getDomainFrom(name);
-
-  if (imgFailed || !name || !domain) {
+  if (imgFailed || !name) {
     return (
       <div className={`flex items-center justify-center text-white font-bold border border-slate-100 dark:border-white/10 shadow-inner ${color} ${className}`}>
         {name ? name[0].toUpperCase() : "?"}
@@ -44,9 +32,11 @@ export default function SubscriptionIcon({ name, color, className = "w-12 h-12 r
         </div>
       )}
       <img
-        src={`/api/favicon?domain=${domain}`}
+        ref={imgRef}
+        key={name}
+        src={`/api/favicon?name=${encodeURIComponent(name)}`}
         alt={`${name} logo`}
-        className={`w-full h-full object-contain rounded-sm transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+        className={`w-full h-full object-contain rounded-xl transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
         onLoad={() => setIsLoading(false)}
         onError={() => {
           setImgFailed(true);
