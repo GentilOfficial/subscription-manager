@@ -101,8 +101,8 @@ export const subscriptions = {
 
 // ─── Subscription modal ─────────────────────────────────
 export const modal = {
-  createTitle: 'Create Record',
-  editTitle: 'Modify Record',
+  createTitle: 'Add Subscription',
+  editTitle: 'Edit Subscription',
   nameLabel: 'Service Identity',
   namePlaceholder: 'e.g. Netflix, Spotify',
   priceLabel: 'Valuation',
@@ -111,10 +111,10 @@ export const modal = {
   renewalLabel: 'Next Renewal',
   categoryLabel: 'Classification',
   statusLabel: 'State',
-  deleteButton: 'Purge',
+  deleteButton: 'Delete',
   cancelButton: 'Discard',
-  saveButton: 'Commit Changes',
-  createButton: 'Execute',
+  saveButton: 'Save',
+  createButton: 'Add',
   errors: {
     emptyName: 'Service Name cannot be empty.',
     invalidPrice: 'Price must be a valid positive number.',
@@ -131,7 +131,7 @@ export const csvImport = {
   selectFile: 'Select CSV File',
   dragDrop: 'Click or drag & drop here',
   cancelButton: 'Cancel',
-  importButton: 'Import Batch',
+  importButton: 'Import',
   successMessage: (count) => `Successfully imported ${count} subscriptions!`,
   errorMessage: 'Failed to parse the CSV file. Please ensure it follows the required format.',
 };

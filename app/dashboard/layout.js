@@ -158,7 +158,7 @@ export default function DashboardLayout({ children }) {
       </div>
 
       {/* Main Content Area */}
-      <main className="flex-1 w-full pt-32 pb-16 px-4 md:px-8 relative overflow-hidden z-10">
+      <main className="flex-1 w-full pt-32 pb-16 px-4 md:px-8 relative overflow-hidden">
         <div className="mx-auto max-w-7xl">{children}</div>
       </main>
     </div>

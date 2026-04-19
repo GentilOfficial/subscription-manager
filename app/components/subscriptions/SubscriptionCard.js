@@ -1,9 +1,15 @@
-import SubscriptionIcon from '../SubscriptionIcon';
+import { blocks } from '../../config/content';
 import site from '../../config/site';
-import GlassCard from '../ui/GlassCard';
+import SubscriptionIcon from '../SubscriptionIcon';
 import Badge from '../ui/Badge';
+import GlassCard from '../ui/GlassCard';
+
+import { getDaysRemaining, getNextRenewalDate } from '../../utils/dateUtils';
 
 export default function SubscriptionCard({ sub, onClick }) {
+  const nextRenewalDate = getNextRenewalDate(sub.renewalDate, sub.interval);
+  const daysRemaining = getDaysRemaining(nextRenewalDate);
+
   return (
     <GlassCard 
       className="p-8 cursor-pointer hover:shadow-2xl hover:scale-[1.03] active:scale-95 group transition-all duration-300"
@@ -11,7 +17,9 @@ export default function SubscriptionCard({ sub, onClick }) {
     >
       <div className="flex justify-between items-start mb-6">
         <SubscriptionIcon name={sub.name} color={sub.color} className="w-16 h-16 rounded-2xl shadow-lg group-hover:scale-110 transition-transform" />
-        <Badge showDot>{sub.status}</Badge>
+        <div className="flex flex-col items-end gap-2">
+          <Badge showDot>{sub.status}</Badge>
+        </div>
       </div>
       
       <div className="mb-8">
@@ -31,8 +39,19 @@ export default function SubscriptionCard({ sub, onClick }) {
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
-                  {new Date(sub.renewalDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                  {nextRenewalDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                 </span>
+                {daysRemaining !== null && daysRemaining >= 0 && daysRemaining <= 7 && (
+                  <span className={`text-[10px] font-bold uppercase tracking-tighter px-2 py-0.5 rounded-md border ${
+                    daysRemaining === 0 
+                      ? 'bg-accent/10 text-accent-dark border-accent/20 animate-pulse' 
+                      : daysRemaining > 0 && daysRemaining <= 7 
+                        ? 'bg-primary/10 text-primary border-primary/20'
+                        : 'bg-app-bg dark:bg-white/5 text-app-text-muted border-slate-200/50 dark:border-white/10'
+                  }`}>
+                    {daysRemaining === 0 ? blocks.accent.today : blocks.accent.days(daysRemaining)}
+                  </span>
+                )}
               </>
             )}
           </div>

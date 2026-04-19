@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import site from '@/app/config/site';
+import { useEffect, useState } from 'react';
 import { modal, subscriptions as subContent } from '../../config/content';
 import BaseModal from '../ui/BaseModal';
 import Button from '../ui/Button';
@@ -103,7 +104,7 @@ export default function SubscriptionModal({
             <div className="flex-1">
               <label className="block text-sm font-bold tracking-wide text-app-text-muted mb-2">{modal.priceLabel}</label>
               <div className="relative">
-                <span className="absolute left-5 top-1/2 -translate-y-1/2 text-app-text-muted/50 font-bold">$</span>
+                <span className="absolute left-5 top-1/2 -translate-y-1/2 text-app-text-muted/50 font-bold">{site.currency}</span>
                 <input 
                   type="number" 
                   step="0.01"
