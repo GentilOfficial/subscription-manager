@@ -1,7 +1,13 @@
 import { common } from '@/app/config/content';
 import { NextResponse } from 'next/server';
+import proxy from '@/proxy';
 
 export async function GET(request) {
+  const authResponse = await proxy(request);
+  if (authResponse.status !== 200) {
+    return NextResponse.redirect(new URL('/', request.url));
+  }
+
   const { searchParams } = new URL(request.url);
   const domain = searchParams.get('domain');
 
