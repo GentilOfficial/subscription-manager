@@ -125,13 +125,13 @@ export default function SubscriptionModal({
           </div>
 
           <div className="flex gap-4">
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <label className="block text-sm font-bold tracking-wide text-app-text-muted mb-2">{modal.renewalLabel}</label>
               <input 
                 type="date"
                 value={formData.renewalDate}
                 onChange={(e) => setFormData({...formData, renewalDate: e.target.value})}
-                className="w-full px-5 py-4 bg-app-surface dark:bg-app-bg-dark border border-slate-200 dark:border-white/10 rounded-2xl text-base text-app-text dark:text-app-text-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all font-medium cursor-pointer"
+                className="w-full px-5 py-4 bg-app-surface dark:bg-app-bg-dark border border-slate-200 dark:border-white/10 rounded-2xl text-base text-app-text dark:text-app-text-dark focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary transition-all font-medium cursor-pointer appearance-none"
               />
             </div>
           </div>

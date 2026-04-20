@@ -1,5 +1,6 @@
 "use client"
 
+import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
@@ -96,9 +97,15 @@ export default function DashboardLayout({ children }) {
         <nav className="pointer-events-auto flex items-center gap-1 sm:gap-2 p-1.5 bg-app-surface/70 dark:bg-app-surface-dark/70 backdrop-blur-2xl border border-slate-200/50 dark:border-white/10 rounded-full shadow-[0_8px_32px_rgba(0,0,0,0.12)] dark:shadow-[0_8px_32px_rgba(0,0,0,0.3)] max-w-full overflow-hidden">
           <Link
             href="/"
-            className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-gradient-to-tr from-primary to-accent text-white font-bold text-lg sm:text-xl ml-0.5 mr-1 shadow-[inset_0_1px_rgba(255,255,255,0.4)] shrink-0 transition-transform active:scale-90"
+            className="flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 ml-0.5 mr-1 shrink-0 transition-transform active:scale-95"
           >
-            {navbar.logoLabel}
+            <Image
+              src="/icon.svg"
+              alt={navbar.logoLabel}
+              width={40}
+              height={40}
+              className="w-full h-full rounded-full"
+            />
           </Link>
 
           <div className="w-px h-6 bg-app-text-muted/10 dark:bg-white/10 mx-0.5" />

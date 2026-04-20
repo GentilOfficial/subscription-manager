@@ -34,7 +34,7 @@ export const signup = {
 };
 
 export const navbar = {
-  logoLabel: site.name[0],
+  logoLabel: site.name,
   links: {
     overview: 'Overview',
     subscriptions: 'Subscriptions',

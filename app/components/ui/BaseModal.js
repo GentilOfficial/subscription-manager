@@ -52,7 +52,7 @@ export default function BaseModal({
           </div>
         )}
 
-        <div className="flex-1 overflow-y-auto custom-scrollbar">
+        <div className="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar">
           {children}
         </div>
       </div>
