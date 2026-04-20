@@ -102,8 +102,8 @@ export default function DashboardLayout({ children }) {
             <Image
               src="/icon.svg"
               alt={navbar.logoLabel}
-              width={40}
-              height={40}
+              width={1024}
+              height={1024}
               className="w-full h-full rounded-full"
             />
           </Link>
