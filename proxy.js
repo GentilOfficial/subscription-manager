@@ -60,7 +60,7 @@ export async function proxy(request) {
 
   const url = request.nextUrl.clone()
   
-  const isPublicPage = url.pathname.startsWith('/login') || url.pathname.startsWith('/signup') || url.pathname === '/' || url.pathname.startsWith('/_next') || url.pathname.includes('.')
+  const isPublicPage = url.pathname.startsWith('/login') || url.pathname.startsWith('/signup') || url.pathname === '/' || url.pathname.startsWith('/_next') || url.pathname.startsWith('/api/calendar') || url.pathname.includes('.')
 
   if (!session && !isPublicPage) {
     url.pathname = '/login'

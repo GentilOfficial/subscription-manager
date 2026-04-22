@@ -32,3 +32,65 @@ CREATE POLICY "Users can update their own subscriptions"
 CREATE POLICY "Users can delete their own subscriptions"
   ON subscriptions FOR DELETE
   USING (auth.uid() = user_id);
+
+-- 4. Create the user_ics_tokens table
+CREATE TABLE user_ics_tokens (
+  user_id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+  token UUID DEFAULT gen_random_uuid() NOT NULL UNIQUE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- 5. Enable Row Level Security (RLS)
+ALTER TABLE user_ics_tokens ENABLE ROW LEVEL SECURITY;
+
+-- 6. Create policies so users can manage their own ICS token
+CREATE POLICY "Users can insert their own ics token"
+  ON user_ics_tokens FOR INSERT
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can view their own ics token"
+  ON user_ics_tokens FOR SELECT
+  USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can update their own ics token"
+  ON user_ics_tokens FOR UPDATE
+  USING (auth.uid() = user_id)
+  WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can delete their own ics token"
+  ON user_ics_tokens FOR DELETE
+  USING (auth.uid() = user_id);
+
+-- 7. Secure Token Data Access Function (Bypasses RLS)
+CREATE OR REPLACE FUNCTION get_subscriptions_by_ics_token(feed_token UUID)
+RETURNS TABLE (
+  id UUID,
+  name TEXT,
+  price NUMERIC,
+  "interval" TEXT,
+  category TEXT,
+  "renewalDate" DATE
+) 
+LANGUAGE plpgsql
+SECURITY DEFINER
+AS $$
+DECLARE
+  target_user_id UUID;
+BEGIN
+  -- Validate token
+  SELECT user_id INTO target_user_id
+  FROM user_ics_tokens
+  WHERE token = feed_token;
+
+  IF target_user_id IS NULL THEN
+    RAISE EXCEPTION 'Invalid token';
+  END IF;
+
+  -- Return matching active records
+  RETURN QUERY
+  SELECT s.id, s.name, s.price, s.interval, s.category, s."renewalDate"
+  FROM subscriptions s
+  WHERE s.user_id = target_user_id
+    AND s.status = 'Active';
+END;
+$$;

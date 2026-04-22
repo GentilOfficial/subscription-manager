@@ -5,8 +5,9 @@ import { useSubscriptionStore } from "../../../stores/subscriptions";
 import CsvImportModal from "../../components/CsvImportModal";
 import SubscriptionCard from "../../components/subscriptions/SubscriptionCard";
 import SubscriptionModal from "../../components/subscriptions/SubscriptionModal";
+import CalendarSyncModal from "../../components/subscriptions/CalendarSyncModal";
 import { useToast } from "@/app/context/ToastContext";
-import { subscriptions as content, notifications } from "../../config/content";
+import { subscriptions as content, notifications, calendarSync } from "../../config/content";
 import { exportCsv } from "../../utils/exportCsv";
 
 import Button from "../../components/ui/Button";
@@ -30,6 +31,7 @@ export default function SubscriptionsPage() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+  const [isSyncModalOpen, setIsSyncModalOpen] = useState(false);
 
   const [editingId, setEditingId] = useState(null);
   const [editingData, setEditingData] = useState(null);
@@ -130,6 +132,15 @@ export default function SubscriptionsPage() {
             </div>
 
             <Button
+              onClick={() => setIsSyncModalOpen(true)}
+              variant="secondary"
+              className="flex-1 sm:flex-none whitespace-nowrap"
+              icon={<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>}
+            >
+              {calendarSync.button}
+            </Button>
+
+            <Button
               onClick={openAddModal}
               className="flex-1 sm:flex-none"
               size="lg"
@@ -177,6 +188,7 @@ export default function SubscriptionsPage() {
       </div>
 
       <CsvImportModal isOpen={isImportModalOpen} onClose={() => setIsImportModalOpen(false)} />
+      <CalendarSyncModal isOpen={isSyncModalOpen} onClose={() => setIsSyncModalOpen(false)} />
 
       <SubscriptionModal
         isOpen={isModalOpen}

@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 export default function BaseModal({
   isOpen,
@@ -10,19 +11,25 @@ export default function BaseModal({
   maxWidth = 'max-w-lg',
   showCloseButton = true
 }) {
+  const [mounted, setMounted] = useState(false);
+
   useEffect(() => {
-    if (isOpen) {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (mounted && isOpen) {
       const originalStyle = window.getComputedStyle(document.body).overflow;
       document.body.style.overflow = 'hidden';
       return () => {
         document.body.style.overflow = originalStyle;
       };
     }
-  }, [isOpen]);
+  }, [isOpen, mounted]);
 
-  if (!isOpen) return null;
+  if (!mounted || !isOpen) return null;
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 pb-20">
       <div
         className="absolute inset-0 backdrop-blur-2xl animate-in fade-in duration-300"
@@ -56,6 +63,7 @@ export default function BaseModal({
           {children}
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

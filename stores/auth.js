@@ -40,5 +40,10 @@ export const useAuthStore = create((set, get) => ({
     await supabaseBrowser.auth.signOut();
     set({ session: null, user: null });
   },
+
+  updatePassword: async (newPassword) => {
+    const { error } = await supabaseBrowser.auth.updateUser({ password: newPassword });
+    if (error) throw error;
+  },
 }));
 

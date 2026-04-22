@@ -38,10 +38,12 @@ export const navbar = {
   links: {
     overview: 'Overview',
     subscriptions: 'Subscriptions',
+    settings: 'Settings',
   },
   logout: 'Logout',
   loading: 'Loading…',
 };
+
 
 export const overview = {
   greeting: "Hello, ",
@@ -178,4 +180,63 @@ export const notFound = {
   subtitle: 'This page does not exist.',
   description: "The address might be incorrect, or the page has been moved or deleted.",
   backHome: 'Back to Home',
+};
+
+export const settings = {
+  heading: 'Settings',
+  subtitle: 'Manage your account preferences and integrations.',
+  calendarFeed: {
+    title: 'Calendar Feed (ICS)',
+    description: 'Sync your active subscriptions with Apple Calendar, Google Calendar, or Outlook.',
+    emptyToken: 'You haven\'t configured a calendar feed yet.',
+    generateBtn: 'Generate Feed',
+    revokeBtn: 'Revoke Access',
+    revokeConfirm: 'Are you sure you want to revoke this feed? Your calendar will stop syncing.',
+    feedUrlLabel: 'Your private feed URL:',
+    copied: 'Link copied to clipboard!',
+    revokeModal: {
+      title: 'Revoke Access',
+      heading: 'Are you sure?',
+      cancelBtn: 'Cancel',
+      confirmBtn: 'Yes, Revoke'
+    }
+  },
+  changePassword: {
+    title: 'Account Security',
+    description: 'Update your password to keep your account secure.',
+    newPasswordLabel: 'New Password',
+    newPasswordPlaceholder: 'Enter new password',
+    confirmPasswordLabel: 'Confirm New Password',
+    confirmPasswordPlaceholder: 'Repeat new password',
+    updateBtn: 'Update Password',
+    updatingBtn: 'Updating...',
+    successMsg: 'Password updated successfully!',
+    errorMismatch: 'Passwords do not match.',
+    errorRequirements: 'Please satisfy all password requirements first.',
+    requirements: {
+      length: 'Minimum 12 characters',
+      uppercase: 'At least 1 uppercase letter',
+      lowercase: 'At least 1 lowercase letter',
+      number: 'At least 1 number',
+      special: 'At least 1 special character'
+    }
+  }
+};
+
+export const calendarSync = {
+  button: 'Add to Calendar',
+  modalTitle: 'Calendar Synchronization',
+  step1Title: 'Generate Sync Link',
+  step1Desc: 'Create a secure, private link to sync your subscriptions seamlessly with your favorite calendar app.',
+  step1Disclaimer: 'Anyone with this link can access your calendar and view your subscriptions data. Keep it private.',
+  step2Title: 'Copy Your Feed Link',
+  step2Desc: 'Use the link below to subscribe to your feed from your calendar application.',
+  generateBtn: 'Generate private link',
+  copyBtn: 'Copy Link',
+  copiedBtn: 'Copied!',
+  instructionsHeadline: 'Quick Instructions',
+  instructions: {
+    apple: 'Apple Calendar: File > New Calendar Subscription...',
+    google: 'Google Calendar: Add calendar > From URL',
+  }
 };

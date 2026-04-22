@@ -2,7 +2,7 @@ import { supabaseServer } from '@/app/lib/supabase/server'
 import { NextResponse } from 'next/server'
 
 export async function POST(request) {
-  const supabase = supabaseServer()
+  const supabase = await supabaseServer()
 
   const { data: { session } } = await supabase.auth.getSession()
 
