@@ -4,6 +4,8 @@ import { useMemo, useState } from 'react';
 import { useAuthStore } from '../../../stores/auth';
 import { settings } from '../../config/content';
 import Button from '../ui/Button';
+import Input from '../ui/Input';
+import Label from '../ui/Label';
 
 export default function ChangePasswordSection() {
   const { updatePassword } = useAuthStore();
@@ -64,7 +66,7 @@ export default function ChangePasswordSection() {
   return (
     <section className="bg-app-surface/60 dark:bg-app-surface-dark/5 backdrop-blur-md rounded-[2.5rem] p-8 sm:p-10 border border-slate-200/50 dark:border-white/5 shadow-xl mt-8">
       <div className="flex items-center gap-4 mb-6">
-        <div className="w-12 h-12 bg-app-text/5 dark:bg-white/5 rounded-full flex items-center justify-center text-app-text dark:text-app-text-dark">
+        <div className="w-12 h-12 shrink-0 bg-app-text/5 dark:bg-white/5 rounded-full flex items-center justify-center text-app-text dark:text-app-text-dark">
           <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
@@ -82,26 +84,26 @@ export default function ChangePasswordSection() {
       <form onSubmit={handleSubmit} className="mt-8 space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-bold tracking-wide text-app-text-muted mb-3">
+            <Label className="mb-3">
               {settings.changePassword.newPasswordLabel}
-            </label>
-            <input
+            </Label>
+            <Input
               type="password"
+              variant="bgInput"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full px-5 py-4 bg-app-bg dark:bg-app-surface-dark border border-slate-200/50 dark:border-white/10 rounded-2xl text-app-text dark:text-app-text-dark focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-app-text-muted/50 font-bold shadow-inner"
               placeholder={settings.changePassword.newPasswordPlaceholder}
             />
           </div>
           <div>
-            <label className="block text-sm font-bold tracking-wide text-app-text-muted mb-3">
+            <Label className="mb-3">
               {settings.changePassword.confirmPasswordLabel}
-            </label>
-            <input
+            </Label>
+            <Input
               type="password"
+              variant="bgInput"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-5 py-4 bg-app-bg dark:bg-app-surface-dark border border-slate-200/50 dark:border-white/10 rounded-2xl text-app-text dark:text-app-text-dark focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-app-text-muted/50 font-bold shadow-inner"
               placeholder={settings.changePassword.confirmPasswordPlaceholder}
             />
           </div>

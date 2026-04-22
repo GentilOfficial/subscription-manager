@@ -6,6 +6,8 @@ import { useEffect, useState } from "react"
 import { useAuthStore } from "../../stores/auth"
 import ThemeToggle from "../components/ThemeToggle"
 import { login } from "../config/content"
+import Input from "../components/ui/Input"
+import Label from "../components/ui/Label"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -66,38 +68,36 @@ export default function LoginPage() {
                 </div>
               )}
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-bold tracking-wide text-app-text-muted mb-3"
-                >
+                <Label htmlFor="email" className="mb-3">
                   {login.emailLabel}
-                </label>
-                <input
+                </Label>
+                <Input
                   id="email"
                   type="email"
+                  size="lg"
+                  variant="elevated"
+                  className="shadow-inner"
                   required
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-6 py-5 bg-app-surface dark:bg-app-surface-dark border border-slate-200/50 dark:border-white/10 rounded-[2rem] text-app-text dark:text-app-text-dark focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-app-text-muted/50 font-bold shadow-inner"
                   placeholder={login.emailPlaceholder}
                 />
               </div>
               <div>
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-bold tracking-wide text-app-text-muted mb-3"
-                >
+                <Label htmlFor="password" className="mb-3">
                   {login.passwordLabel}
-                </label>
-                <input
+                </Label>
+                <Input
                   id="password"
                   type="password"
+                  size="lg"
+                  variant="elevated"
+                  className="shadow-inner"
                   required
                   autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-6 py-5 bg-app-surface dark:bg-app-surface-dark border border-slate-200/50 dark:border-white/10 rounded-[2rem] text-app-text dark:text-app-text-dark focus:outline-none focus:ring-4 focus:ring-primary/20 focus:border-primary transition-all placeholder:text-app-text-muted/50 font-bold shadow-inner"
                   placeholder={login.passwordPlaceholder}
                 />
               </div>

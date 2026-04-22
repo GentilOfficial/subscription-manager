@@ -105,6 +105,7 @@ export default function DashboardLayout({ children }) {
               width={1024}
               height={1024}
               className="w-full h-full rounded-full"
+              priority
             />
           </Link>
 
