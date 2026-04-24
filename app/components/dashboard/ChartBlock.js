@@ -1,4 +1,5 @@
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
+import site from '@/app/config/site';
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 import { blocks } from '../../config/content';
 import GlassCard from '../ui/GlassCard';
 
@@ -9,7 +10,7 @@ const CustomTooltip = ({ active, payload }) => {
     return (
       <div className="bg-app-surface/90 dark:bg-app-surface-dark/90 backdrop-blur-md border border-slate-200/50 dark:border-white/10 px-4 py-3 rounded-2xl shadow-xl">
         <p className="text-app-text dark:text-app-text-dark font-bold tracking-tight">{`${payload[0].name}`}</p>
-        <p className="text-primary font-medium">{`$${payload[0].value.toFixed(2)} ${blocks.chart.tooltipSuffix}`}</p>
+        <p className="text-primary font-medium">{`${payload[0].value.toFixed(2)}${site.currency} ${blocks.chart.tooltipSuffix}`}</p>
       </div>
     );
   }
