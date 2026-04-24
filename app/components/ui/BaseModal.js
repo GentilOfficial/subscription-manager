@@ -1,5 +1,6 @@
 "use client";
 
+import { X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -51,9 +52,7 @@ export default function BaseModal({
                 onClick={onClose}
                 className="text-app-text-muted hover:text-app-text dark:hover:text-app-text-dark bg-app-bg hover:bg-slate-200 dark:bg-white/5 dark:hover:bg-white/10 p-2 rounded-full transition-transform hover:rotate-90"
               >
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <X className="w-5 h-5" />
               </button>
             )}
           </div>

@@ -1,16 +1,18 @@
 "use client";
 
+import { useToast } from "@/app/context/ToastContext";
+import { Archive, Calendar, Plus, Download, Upload } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useSubscriptionStore } from "../../../stores/subscriptions";
 import CsvImportModal from "../../components/CsvImportModal";
+import CalendarSyncModal from "../../components/subscriptions/CalendarSyncModal";
 import SubscriptionCard from "../../components/subscriptions/SubscriptionCard";
 import SubscriptionModal from "../../components/subscriptions/SubscriptionModal";
-import CalendarSyncModal from "../../components/subscriptions/CalendarSyncModal";
-import { useToast } from "@/app/context/ToastContext";
-import { subscriptions as content, notifications, calendarSync } from "../../config/content";
+import { calendarSync, notifications, subscriptions as content } from "../../config/content";
 import { exportCsv } from "../../utils/exportCsv";
 
 import Button from "../../components/ui/Button";
+import EmptyState from "../../components/ui/EmptyState";
 
 export default function SubscriptionsPage() {
   const { addToast } = useToast();
@@ -112,39 +114,39 @@ export default function SubscriptionsPage() {
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tighter text-app-text dark:text-app-text-dark mb-4 leading-tight">{content.heading}</h1>
             <p className="text-base sm:text-lg md:text-xl text-app-text-muted font-medium max-w-2xl">{content.subtitle}</p>
           </div>
-          <div className="flex flex-wrap gap-2 sm:gap-3 items-center w-full lg:w-auto">
-            <div className="flex gap-2 sm:gap-3 overflow-x-auto no-scrollbar py-1 w-full sm:w-auto">
-              <Button
-                variant="ghost"
-                onClick={handleExportCsv}
-                className="whitespace-nowrap"
-              >
-                {content.exportCsv}
-              </Button>
+          <div className="flex flex-wrap xl:flex-nowrap gap-2 sm:gap-3 items-center w-full lg:w-auto">
+            <Button
+              variant="subtle"
+              onClick={handleExportCsv}
+              className="hidden sm:flex whitespace-nowrap"
+              icon={<Download className="w-4 h-4" />}
+            >
+              {content.exportCsv}
+            </Button>
 
-              <Button
-                variant="ghost"
-                onClick={() => setIsImportModalOpen(true)}
-                className="whitespace-nowrap"
-              >
-                {content.importCsv}
-              </Button>
-              <Button
-                onClick={() => setIsSyncModalOpen(true)}
-                variant="secondary"
-                className="flex-1 sm:flex-none whitespace-nowrap"
-                icon={<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>}
-              >
-                {calendarSync.button}
-              </Button>
-            </div>
+            <Button
+              variant="subtle"
+              onClick={() => setIsImportModalOpen(true)}
+              className="flex-1 sm:flex-none whitespace-nowrap justify-center"
+              icon={<Upload className="w-4 h-4" />}
+            >
+              {content.importCsv}
+            </Button>
 
+            <Button
+              onClick={() => setIsSyncModalOpen(true)}
+              variant="secondary"
+              className="flex-1 sm:flex-none whitespace-nowrap justify-center"
+              icon={<Calendar className="w-4 h-4" />}
+            >
+              {calendarSync.button}
+            </Button>
 
             <Button
               onClick={openAddModal}
-              className="flex-1 sm:flex-none"
+              className="flex-1 sm:flex-none whitespace-nowrap justify-center"
               size="lg"
-              icon={<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 4v16m8-8H4" /></svg>}
+              icon={<Plus className="w-5 h-5" />}
             >
               {content.addNew}
             </Button>
@@ -171,18 +173,17 @@ export default function SubscriptionsPage() {
             <SubscriptionCard key={sub.id} sub={sub} onClick={() => openEditModal(sub)} />
           ))}
           {filteredSubs.length === 0 && (
-            <div className="col-span-full py-24 flex flex-col items-center justify-center text-center bg-app-surface/50 dark:bg-white/5 backdrop-blur-md border border-dashed border-slate-300/50 dark:border-white/10 rounded-[3rem]">
-              <div className="w-20 h-20 bg-app-bg dark:bg-white/5 rounded-full flex items-center justify-center mb-6 ring-8 ring-app-bg dark:ring-white/5">
-                <svg className="w-10 h-10 text-app-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-extrabold tracking-tight text-app-text dark:text-app-text-dark mb-2">{content.emptyTitle}</h3>
-              <p className="text-lg text-app-text-muted font-medium max-w-sm mb-8">{content.emptyMessage}</p>
-              <Button onClick={openAddModal} variant="secondary" size="lg">
-                {content.emptyCta}
-              </Button>
-            </div>
+            <EmptyState
+              className="col-span-full py-20"
+              icon={Archive}
+              title={content.emptyTitle}
+              description={content.emptyMessage}
+              action={
+                <Button onClick={openAddModal} variant="secondary" size="lg">
+                  {content.emptyCta}
+                </Button>
+              }
+            />
           )}
         </div>
       </div>

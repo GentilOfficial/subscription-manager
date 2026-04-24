@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -45,7 +46,7 @@ export default function Home() {
           >
             {landing.ctaPrimary}
             <span className="group-hover:translate-x-1 transition-transform opacity-60">
-              <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              <ArrowRight className="size-5" />
             </span>
           </Link>
           <Link

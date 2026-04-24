@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Spinner from "./ui/Spinner";
 
 export default function SubscriptionIcon({ name, color, className = "w-12 h-12 rounded-2xl text-lg shrink-0" }) {
   const [imgFailed, setImgFailed] = useState(false);
@@ -28,7 +29,7 @@ export default function SubscriptionIcon({ name, color, className = "w-12 h-12 r
     <div className={`relative flex items-center justify-center bg-app-surface dark:bg-app-surface-dark border border-slate-200/50 dark:border-white/10 overflow-hidden shadow-inner p-1.5 ${className}`}>
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center text-white/5 bg-app-surface dark:bg-app-surface-dark z-10">
-          <div className="w-1/2 h-1/2 rounded-full border-2 border-primary/20 border-t-primary animate-spin" />
+          <Spinner size="md" className="text-primary/50 w-1/2 h-1/2" />
         </div>
       )}
       <img
@@ -46,5 +47,3 @@ export default function SubscriptionIcon({ name, color, className = "w-12 h-12 r
     </div>
   );
 }
-
-

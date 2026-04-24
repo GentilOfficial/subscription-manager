@@ -8,6 +8,8 @@ import ThemeToggle from "../components/ThemeToggle"
 import { login } from "../config/content"
 import Input from "../components/ui/Input"
 import Label from "../components/ui/Label"
+import Spinner from "../components/ui/Spinner"
+import GlassCard from "../components/ui/GlassCard"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -60,7 +62,7 @@ export default function LoginPage() {
               {login.subtitle}
             </p>
           </div>
-          <div className="bg-app-surface/70 dark:bg-app-surface-dark/60 backdrop-blur-3xl border border-black/5 dark:border-white/5 p-10 sm:p-12 rounded-[3.5rem] shadow-[0_40px_80px_rgba(0,0,0,0.05)] dark:shadow-[0_40px_80px_rgba(0,0,0,0.2)] animate-in slide-in-from-bottom-8 duration-700 relative overflow-hidden">
+          <GlassCard className="p-10 sm:p-12 animate-in slide-in-from-bottom-8 duration-700">
             <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
               {error && (
                 <div className="px-5 py-4 bg-accent-muted border border-accent/20 rounded-2xl text-sm font-semibold text-accent-dark dark:text-accent animate-in fade-in duration-300">
@@ -108,25 +110,7 @@ export default function LoginPage() {
               >
                 {isSubmitting ? (
                   <>
-                    <svg
-                      className="animate-spin w-5 h-5 shrink-0"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      />
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8v8H4z"
-                      />
-                    </svg>
+                    <Spinner size="sm" />
                     {login.submittingButton}
                   </>
                 ) : (
@@ -145,7 +129,7 @@ export default function LoginPage() {
                 </Link>
               </p>
             </div>
-          </div>
+          </GlassCard>
         </div>
       </main>
     </>

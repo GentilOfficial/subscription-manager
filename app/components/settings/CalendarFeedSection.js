@@ -1,10 +1,14 @@
 "use client";
 
 import { getIcsToken, revokeIcsToken } from '@/stores/ics';
+import { Calendar } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { calendarSync, settings } from '../../config/content';
 import CalendarSyncModal from '../subscriptions/CalendarSyncModal';
 import Button from '../ui/Button';
+import EmptyState from '../ui/EmptyState';
+import GlassCard from '../ui/GlassCard';
+import Spinner from '../ui/Spinner';
 import RevokeModal from './RevokeModal';
 
 export default function CalendarFeedSection() {
@@ -82,12 +86,10 @@ export default function CalendarFeedSection() {
 
   return (
     <>
-      <section className="bg-app-surface/60 dark:bg-app-surface-dark/5 backdrop-blur-md rounded-[2.5rem] p-8 sm:p-10 border border-slate-200/50 dark:border-white/5 shadow-xl">
+      <GlassCard className="p-8 sm:p-10">
         <div className="flex items-center gap-4 mb-6">
           <div className="w-12 h-12 shrink-0 bg-app-text/5 dark:bg-white/5 rounded-full flex items-center justify-center text-app-text dark:text-app-text-dark">
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
+            <Calendar className="w-6 h-6" />
           </div>
           <div>
             <h2 className="text-2xl font-bold tracking-tight text-app-text dark:text-app-text-dark">
@@ -102,7 +104,7 @@ export default function CalendarFeedSection() {
         <div className="mt-8">
           {isLoading ? (
             <div className="h-24 flex items-center justify-center">
-              <div className="w-6 h-6 rounded-full border-2 border-primary border-t-transparent animate-spin"></div>
+              <Spinner size="md" className="text-primary" />
             </div>
           ) : token ? (
             <div className="space-y-6">
@@ -130,16 +132,17 @@ export default function CalendarFeedSection() {
               </div>
             </div>
           ) : (
-            <div className="text-center py-8 bg-app-bg/50 dark:bg-white/5 rounded-2xl border border-dashed border-slate-300 dark:border-white/10">
-              <p className="text-app-text-muted mb-4">{settings.calendarFeed.emptyToken}</p>
-              <Button onClick={() => setIsModalOpen(true)}>
-                {settings.calendarFeed.generateBtn}
-              </Button>
-            </div>
+            <EmptyState
+              title={settings.calendarFeed.emptyToken}
+              action={
+                <Button onClick={() => setIsModalOpen(true)}>
+                  {settings.calendarFeed.generateBtn}
+                </Button>
+              }
+            />
           )}
         </div>
-
-      </section>
+      </GlassCard>
 
       <CalendarSyncModal isOpen={isModalOpen} onClose={handleModalClose} />
       <RevokeModal isOpen={isRevokeModalOpen} onClose={() => setIsRevokeModalOpen(false)} onConfirm={confirmRevoke} />

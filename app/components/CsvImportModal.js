@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from 'react';
-import { useSubscriptionStore } from '@/stores/subscriptions';
 import { useToast } from '@/app/context/ToastContext';
+import { normalizeSubscription } from '@/app/utils/subscriptionValidation';
+import { useSubscriptionStore } from '@/stores/subscriptions';
+import { Upload } from 'lucide-react';
+import { useState } from 'react';
 import { csvImport, notifications } from '../config/content';
 import BaseModal from './ui/BaseModal';
 import Button from './ui/Button';
-import { normalizeSubscription } from '@/app/utils/subscriptionValidation';
 
 export default function CsvImportModal({ isOpen, onClose }) {
   const { addToast } = useToast();
@@ -128,9 +129,7 @@ export default function CsvImportModal({ isOpen, onClose }) {
           />
           <div className="w-full text-center border-2 border-dashed border-slate-300/50 dark:border-white/10 rounded-3xl py-12 px-6 flex flex-col items-center justify-center transition-all bg-app-surface/50 dark:bg-white/5 group-hover:bg-app-surface dark:group-hover:bg-white/10 group-hover:border-primary/50">
             <div className="w-16 h-16 rounded-full bg-app-bg dark:bg-white/5 flex items-center justify-center mb-4 text-primary group-hover:scale-110 transition-transform">
-              <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-              </svg>
+              <Upload className="w-8 h-8" />
             </div>
             <p className="text-app-text dark:text-app-text-dark font-bold tracking-tight mb-1">{file ? file.name : csvImport.selectFile}</p>
             <p className="text-app-text-muted text-sm font-medium">{file ? `${(file.size / 1024).toFixed(1)} KB` : csvImport.dragDrop}</p>

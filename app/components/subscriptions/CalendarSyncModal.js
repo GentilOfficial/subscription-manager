@@ -1,10 +1,12 @@
 "use client";
 
 import { getIcsToken, refreshIcsToken } from '@/stores/ics';
+import { AlertTriangle, Calendar, Check } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { calendarSync } from '../../config/content';
 import BaseModal from '../ui/BaseModal';
 import Button from '../ui/Button';
+import Spinner from '../ui/Spinner';
 
 export default function CalendarSyncModal({ isOpen, onClose }) {
   const [step, setStep] = useState(1);
@@ -75,26 +77,19 @@ export default function CalendarSyncModal({ isOpen, onClose }) {
       <div className="p-6 sm:p-8">
         {isLoading ? (
           <div className="flex justify-center p-12">
-            <svg className="animate-spin w-8 h-8 text-primary" viewBox="0 0 24 24" fill="none">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-            </svg>
+            <Spinner size="lg" className="text-primary" />
           </div>
         ) : step === 1 ? (
           <div className="flex flex-col items-center text-center space-y-6 animate-in fade-in zoom-in-95 duration-300">
             <div className="w-20 h-20 bg-app-text/5 dark:bg-white/5 rounded-full flex items-center justify-center text-app-text dark:text-app-text-dark">
-              <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
+              <Calendar className="w-10 h-10" />
             </div>
             <div>
               <h3 className="text-2xl font-bold text-app-text dark:text-app-text-dark">{calendarSync.step1Title}</h3>
               <p className="mt-2 text-app-text-muted">{calendarSync.step1Desc}</p>
               
               <div className="bg-yellow-50 dark:bg-yellow-500/10 border border-yellow-200 dark:border-yellow-500/20 text-yellow-800 dark:text-yellow-600 text-sm p-4 rounded-xl mt-6 max-w-sm mx-auto text-left flex items-start gap-3">
-                <svg className="w-5 h-5 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                </svg>
+                <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5" />
                 <p className="font-medium leading-relaxed">{calendarSync.step1Disclaimer}</p>
               </div>
             </div>
@@ -118,7 +113,7 @@ export default function CalendarSyncModal({ isOpen, onClose }) {
                <Button onClick={copyToClipboard} variant={isCopied ? 'primary' : 'secondary'} className="w-full sm:w-auto shrink-0 whitespace-nowrap transition-all">
                  {isCopied ? (
                    <span className="flex items-center gap-2">
-                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                     <Check className="w-4 h-4" />
                      {calendarSync.copiedBtn}
                    </span>
                  ) : calendarSync.copyBtn}

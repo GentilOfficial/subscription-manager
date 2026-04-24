@@ -1,11 +1,14 @@
 "use client";
 
+import { Check, Lock } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { useAuthStore } from '../../../stores/auth';
 import { settings } from '../../config/content';
 import Button from '../ui/Button';
+import GlassCard from '../ui/GlassCard';
 import Input from '../ui/Input';
 import Label from '../ui/Label';
+import Spinner from '../ui/Spinner';
 
 export default function ChangePasswordSection() {
   const { updatePassword } = useAuthStore();
@@ -58,18 +61,14 @@ export default function ChangePasswordSection() {
   };
 
   const CheckIcon = ({ fulfilled }) => (
-    <svg className={`w-4 h-4 shrink-0 transition-colors ${fulfilled ? 'text-green-500' : 'text-slate-300 dark:text-white/20'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
-    </svg>
+    <Check className={`w-4 h-4 shrink-0 transition-colors ${fulfilled ? 'text-green-500' : 'text-slate-300 dark:text-white/20'}`} />
   );
 
   return (
-    <section className="bg-app-surface/60 dark:bg-app-surface-dark/5 backdrop-blur-md rounded-[2.5rem] p-8 sm:p-10 border border-slate-200/50 dark:border-white/5 shadow-xl mt-8">
+    <GlassCard className="mt-8 p-8 sm:p-10">
       <div className="flex items-center gap-4 mb-6">
         <div className="w-12 h-12 shrink-0 bg-app-text/5 dark:bg-white/5 rounded-full flex items-center justify-center text-app-text dark:text-app-text-dark">
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-          </svg>
+          <Lock className="w-6 h-6" />
         </div>
         <div>
           <h2 className="text-2xl font-bold tracking-tight text-app-text dark:text-app-text-dark">
@@ -142,11 +141,12 @@ export default function ChangePasswordSection() {
         )}
 
         <div className="flex justify-end pt-5 border-t border-slate-200 dark:border-white/10">
-          <Button type="submit" disabled={isSubmitting || !newPassword || !confirmPassword || !requirementsMet} className="w-full sm:w-auto px-8 transition-all">
+          <Button type="submit" disabled={isSubmitting || !newPassword || !confirmPassword || !requirementsMet} className="w-full sm:w-auto px-8 transition-all flex items-center justify-center gap-2">
+            {isSubmitting && <Spinner size="sm" />}
             {isSubmitting ? settings.changePassword.updatingBtn : settings.changePassword.updateBtn}
           </Button>
         </div>
       </form>
-    </section>
+    </GlassCard>
   );
 }

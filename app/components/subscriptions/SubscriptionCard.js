@@ -1,3 +1,4 @@
+import { ArrowRight, Calendar } from 'lucide-react';
 import { blocks } from '../../config/content';
 import site from '../../config/site';
 import SubscriptionIcon from '../SubscriptionIcon';
@@ -36,9 +37,7 @@ export default function SubscriptionCard({ sub, onClick }) {
               <>
                 <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-white/20"></span>
                 <span className="flex items-center gap-1">
-                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
+                  <Calendar className="w-3.5 h-3.5" />
                   {nextRenewalDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                 </span>
                 {daysRemaining !== null && daysRemaining >= 0 && daysRemaining <= 7 && (
@@ -58,9 +57,7 @@ export default function SubscriptionCard({ sub, onClick }) {
         </div>
         
         <div className="w-10 h-10 rounded-full bg-app-bg dark:bg-app-surface-dark/50 flex items-center justify-center text-app-text-muted/50 group-hover:bg-primary group-hover:text-white transition-all shadow-sm">
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-          </svg>
+          <ArrowRight className="w-5 h-5" />
         </div>
       </div>
     </GlassCard>
