@@ -236,7 +236,7 @@ export const calendarSync = {
   copiedBtn: 'Copied!',
   instructionsHeadline: 'Quick Instructions',
   instructions: {
-    apple: 'Apple Calendar: File > New Calendar Subscription...',
+    apple: 'Apple Calendar: File > New Calendar Subscription',
     google: 'Google Calendar: Add calendar > From URL',
   }
 };
