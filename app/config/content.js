@@ -185,6 +185,18 @@ export const notFound = {
 export const settings = {
   heading: 'Settings',
   subtitle: 'Manage your account preferences and integrations.',
+  profile: {
+    title: 'Profile Settings',
+    description: 'Personalize your account identity.',
+    usernameLabel: 'Username',
+    usernamePlaceholder: 'Enter your nickname',
+    usernameHint: 'Choose a nickname to display on your dashboard.',
+    updateBtn: 'Save Profile',
+    updatingBtn: 'Saving...',
+    successMsg: 'Profile updated successfully!',
+    errorTooLong: 'Username must be 20 characters or less.',
+    errorGeneric: 'Failed to update profile.',
+  },
   calendarFeed: {
     title: 'Calendar Feed (ICS)',
     description: 'Sync your active subscriptions with Apple Calendar, Google Calendar, or Outlook.',

@@ -2,6 +2,7 @@
 
 import { AlertTriangle } from 'lucide-react';
 import { useEffect, useMemo } from 'react';
+import { useAuthStore } from '../../stores/auth';
 import { useSubscriptionStore } from '../../stores/subscriptions';
 import AccentBlock from '../components/dashboard/AccentBlock';
 import ActivityBlock from '../components/dashboard/ActivityBlock';
@@ -11,11 +12,12 @@ import { overview } from '../config/content';
 import { getDaysRemaining, getNextRenewalDate } from '../utils/dateUtils';
 
 export default function DashboardOverview() {
-  const { subscriptions, isLoading, error, init } = useSubscriptionStore();
+  const { subscriptions, isLoading: subsLoading, error, init: initSubs } = useSubscriptionStore();
+  const { profile } = useAuthStore();
 
   useEffect(() => {
-    init();
-  }, [init]);
+    initSubs();
+  }, [initSubs]);
 
   const stats = useMemo(() => {
     const active = subscriptions.filter(s => s.status === 'Active');
@@ -91,7 +93,7 @@ export default function DashboardOverview() {
     };
   }, [subscriptions]);
 
-  if (isLoading) {
+  if (subsLoading) {
     return null;
   }
 
@@ -119,7 +121,7 @@ export default function DashboardOverview() {
     <div className="animate-in fade-in slide-in-from-bottom-8 duration-1000 ease-out">
       <header className="mb-12">
         <h1 className="text-5xl md:text-6xl font-extrabold tracking-tighter text-app-text dark:text-app-text-dark mb-4">
-          {overview.greeting}<span className="text-transparent tracking-normal bg-clip-text bg-gradient-to-r from-primary to-accent">{overview.greetingName("Federico")}</span>
+          {overview.greeting}<span className="text-transparent tracking-normal bg-clip-text bg-gradient-to-r from-primary to-accent">{overview.greetingName(profile?.username || "Guest")}</span>
         </h1>
         <p className="text-lg md:text-xl text-app-text-muted font-medium">{overview.subtitle(new Date().toLocaleString('default', { month: 'long', year: 'numeric' }))}</p>
       </header>

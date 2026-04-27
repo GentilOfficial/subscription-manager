@@ -2,6 +2,7 @@
 
 import CalendarFeedSection from '../../components/settings/CalendarFeedSection';
 import ChangePasswordSection from '../../components/settings/ChangePasswordSection';
+import ProfileSection from '../../components/settings/ProfileSection';
 import { settings } from '../../config/content';
 
 export default function SettingsPage() {
@@ -18,6 +19,7 @@ export default function SettingsPage() {
         </header>
 
         <div className="space-y-8">
+          <ProfileSection />
           <ChangePasswordSection />
           <CalendarFeedSection />
         </div>

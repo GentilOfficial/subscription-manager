@@ -94,3 +94,43 @@ BEGIN
     AND s.status = 'Active';
 END;
 $$;
+
+-- 8. Create the profiles table
+CREATE TABLE profiles (
+  id UUID REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
+  username TEXT CHECK (char_length(username) <= 20)
+);
+
+-- 9. Enable Row Level Security (RLS)
+ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
+
+-- 10. Create policies
+CREATE POLICY "Users can insert their own profile"
+  ON profiles FOR INSERT
+  WITH CHECK (auth.uid() = id);
+
+CREATE POLICY "Users can view their own profile"
+  ON profiles FOR SELECT
+  USING (auth.uid() = id);
+
+CREATE POLICY "Users can update their own profile"
+  ON profiles FOR UPDATE
+  USING (auth.uid() = id)
+  WITH CHECK (auth.uid() = id);
+
+-- 11. Trigger to create a profile automatically when a user signs up
+CREATE OR REPLACE FUNCTION public.handle_new_user()
+RETURNS trigger
+LANGUAGE plpgsql
+SECURITY DEFINER SET search_path = public
+AS $$
+BEGIN
+  INSERT INTO public.profiles (id)
+  VALUES (new.id);
+  RETURN NEW;
+END;
+$$;
+
+CREATE OR REPLACE TRIGGER on_auth_user_created
+  AFTER INSERT ON auth.users
+  FOR EACH ROW EXECUTE PROCEDURE public.handle_new_user();
