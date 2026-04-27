@@ -2,7 +2,21 @@ import { create } from 'zustand';
 import { supabase } from './supabase';
 import { getNextRenewalDate } from '../app/utils/dateUtils';
 
-// Helper: get current authenticated user id
+const STATUS_ORDER = { 'Active': 1, 'Paused': 2, 'Cancelled': 3 };
+
+const sortSubscriptions = (subs) => {
+  return [...subs].sort((a, b) => {
+    const statusDiff = (STATUS_ORDER[a.status] || 99) - (STATUS_ORDER[b.status] || 99);
+    if (statusDiff !== 0) return statusDiff;
+
+    const nextA = getNextRenewalDate(a.renewalDate, a.interval);
+    const nextB = getNextRenewalDate(b.renewalDate, b.interval);
+    if (!nextA) return 1;
+    if (!nextB) return -1;
+    return nextA - nextB;
+  });
+};
+
 async function getUid() {
   const { data: { session } } = await supabase.auth.getSession();
   return session?.user?.id ?? null;
@@ -15,7 +29,6 @@ export const useSubscriptionStore = create((set, get) => ({
   error: null,
 
   init: async () => {
-    // Optimization: Cache check
     if (get().isInitialized) return;
     
     await get().fetchSubscriptions();
@@ -30,22 +43,7 @@ export const useSubscriptionStore = create((set, get) => ({
         .select('*');
 
       if (error) throw error;
-
-      // Calculate next renewal and sort
-      const processed = (data || []).map(sub => {
-        const nextRenewal = getNextRenewalDate(sub.renewalDate, sub.interval);
-        return { 
-          ...sub, 
-          computedNextRenewal: nextRenewal 
-        };
-      }).sort((a, b) => {
-        // Handle null dates: push to end
-        if (!a.computedNextRenewal) return 1;
-        if (!b.computedNextRenewal) return -1;
-        return a.computedNextRenewal - b.computedNextRenewal;
-      });
-
-      set({ subscriptions: processed, isLoading: false });
+      set({ subscriptions: sortSubscriptions(data || []), isLoading: false });
     } catch (e) {
       console.error('Supabase error fetching docs:', e.message);
       set({ error: e.message, isLoading: false });
@@ -58,10 +56,9 @@ export const useSubscriptionStore = create((set, get) => ({
       const uid = await getUid();
       if (!uid) throw new Error('Not authenticated');
 
-      // Optimistic update
       const tempId = Math.random().toString(36).substring(7);
       const newSub = { ...sub, id: tempId, user_id: uid, created_at: new Date().toISOString() };
-      set({ subscriptions: [newSub, ...previousSubs] });
+      set({ subscriptions: sortSubscriptions([newSub, ...previousSubs]) });
 
       const { id, user_id, ...rest } = sub;
       const { data, error } = await supabase
@@ -72,9 +69,8 @@ export const useSubscriptionStore = create((set, get) => ({
 
       if (error) throw error; 
       
-      // Replace temp item with real item from DB
       set({ 
-        subscriptions: get().subscriptions.map(s => s.id === tempId ? data : s) 
+        subscriptions: sortSubscriptions(get().subscriptions.map(s => s.id === tempId ? data : s))
       });
     } catch (e) {
       console.error('Failed to add subscription:', e);
@@ -86,9 +82,8 @@ export const useSubscriptionStore = create((set, get) => ({
   updateSubscription: async (id, updatedFields) => {
     const previousSubs = get().subscriptions;
     try {
-      // Optimistic update
       set({
-        subscriptions: previousSubs.map(s => s.id === id ? { ...s, ...updatedFields } : s)
+        subscriptions: sortSubscriptions(previousSubs.map(s => s.id === id ? { ...s, ...updatedFields } : s))
       });
 
       const { error } = await supabase
@@ -107,7 +102,6 @@ export const useSubscriptionStore = create((set, get) => ({
   deleteSubscription: async (id) => {
     const previousSubs = get().subscriptions;
     try {
-      // Optimistic update
       set({
         subscriptions: previousSubs.filter(s => s.id !== id)
       });
@@ -130,7 +124,6 @@ export const useSubscriptionStore = create((set, get) => ({
       const uid = await getUid();
       if (!uid) throw new Error('Not authenticated');
 
-      // Optimization: Bulk Insert
       const insertData = importedSubs.map(sub => {
         const { id, user_id, ...rest } = sub;
         return { ...rest, user_id: uid };

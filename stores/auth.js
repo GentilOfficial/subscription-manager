@@ -8,7 +8,6 @@ export const useAuthStore = create((set, get) => ({
   profile: null,
   isLoading: true,
 
-  // Initialize from existing session (called on mount)
   init: async () => {
     const { data: { session } } = await supabaseBrowser.auth.getSession();
     set({ session, user: session?.user ?? null, isLoading: false });
@@ -17,7 +16,6 @@ export const useAuthStore = create((set, get) => ({
       get().fetchProfile(session.user.id);
     }
 
-    // Listen for auth state changes
     const { data: { subscription } } = supabaseBrowser.auth.onAuthStateChange((_event, session) => {
       set({ session, user: session?.user ?? null });
       if (session?.user) {
