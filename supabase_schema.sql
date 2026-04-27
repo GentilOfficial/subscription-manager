@@ -69,13 +69,15 @@ RETURNS TABLE (
   price NUMERIC,
   "interval" TEXT,
   category TEXT,
-  "renewalDate" DATE
+  "renewalDate" DATE,
+  currency TEXT
 ) 
 LANGUAGE plpgsql
 SECURITY DEFINER
 AS $$
 DECLARE
   target_user_id UUID;
+  user_currency TEXT;
 BEGIN
   -- Validate token
   SELECT user_id INTO target_user_id
@@ -86,9 +88,14 @@ BEGIN
     RAISE EXCEPTION 'Invalid token';
   END IF;
 
+  -- Get user currency
+  SELECT p.currency INTO user_currency
+  FROM profiles p
+  WHERE p.id = target_user_id;
+
   -- Return matching active records
   RETURN QUERY
-  SELECT s.id, s.name, s.price, s.interval, s.category, s."renewalDate"
+  SELECT s.id, s.name, s.price, s.interval, s.category, s."renewalDate", COALESCE(user_currency, 'EUR')
   FROM subscriptions s
   WHERE s.user_id = target_user_id
     AND s.status = 'Active';
@@ -98,7 +105,8 @@ $$;
 -- 8. Create the profiles table
 CREATE TABLE profiles (
   id UUID REFERENCES auth.users(id) ON DELETE CASCADE PRIMARY KEY,
-  username TEXT CHECK (char_length(username) <= 20)
+  username TEXT CHECK (char_length(username) <= 20),
+  currency TEXT DEFAULT 'EUR' CHECK (currency IN ('EUR', 'USD'))
 );
 
 -- 9. Enable Row Level Security (RLS)

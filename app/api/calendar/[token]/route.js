@@ -1,4 +1,5 @@
 import site from '@/app/config/site';
+import { currencies } from '@/app/config/content';
 import { getCalendarFeedData } from '@/stores/ics';
 import * as ics from 'ics';
 import { NextResponse } from 'next/server';
@@ -27,8 +28,9 @@ export async function GET(request, { params }) {
     if (sub.interval === 'Weekly') recurrenceRule = 'FREQ=WEEKLY';
     if (sub.interval === 'Yearly') recurrenceRule = 'FREQ=YEARLY';
 
+    const currencySymbol = currencies.find(c => c.code === sub.currency)?.symbol || '€';
     return {
-      title: `${sub.name} - ${sub.price}${site.currency}`,
+      title: `${sub.name} - ${sub.price}${currencySymbol}`,
       description: `${sub.category}`,
       start,
       calName: site.name,

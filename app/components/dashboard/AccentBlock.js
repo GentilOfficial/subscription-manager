@@ -1,9 +1,11 @@
+import { Calendar } from 'lucide-react';
+import { useAuthStore } from '@/stores/auth';
 import { blocks } from '../../config/content';
-import site from '../../config/site';
 import SubscriptionIcon from '../SubscriptionIcon';
 import GlassCard from '../ui/GlassCard';
 
 export default function AccentBlock({ upcomingSubs = [] }) {
+  const { getCurrencySymbol } = useAuthStore();
   return (
     <GlassCard className="md:col-span-6 lg:col-span-4 bg-gradient-to-br from-primary to-accent-dark p-6 sm:p-8 md:p-10 shadow-2xl hover:scale-[1.02] text-white">
       <h3 className="text-lg font-semibold text-white/80 z-10 mb-8">{blocks.accent.title}</h3>
@@ -17,7 +19,7 @@ export default function AccentBlock({ upcomingSubs = [] }) {
           <div className="flex flex-col gap-1">
             <SubscriptionIcon name={upcomingSubs[0].name} color={upcomingSubs[0].color} className="w-16 h-16 rounded-2xl mb-4 shadow-xl ring-2 ring-white/20" />
             <p className="text-3xl font-extrabold tracking-tight mb-1">{upcomingSubs[0].name}</p>
-            <p className="text-xl font-semibold text-white/50"><span className="text-white">{site.currency} {upcomingSubs[0].price}</span> / {upcomingSubs[0].interval.toLowerCase()}</p>
+            <p className="text-xl font-semibold text-white/50"><span className="text-white">{upcomingSubs[0].price}{getCurrencySymbol()}</span> / {upcomingSubs[0].interval.toLowerCase()}</p>
 
             <div className="mt-4 bg-black/20 backdrop-blur-md rounded-2xl p-4 border border-white/10 flex justify-between items-center">
               <div>
@@ -62,8 +64,9 @@ export default function AccentBlock({ upcomingSubs = [] }) {
                 </div>
                 
                 <div className="text-right">
-                  <p className="font-extrabold text-lg leading-none mb-1">{site.currency}{Number(sub.price).toFixed(2)}</p>
-                  <p className="text-[10px] font-bold text-white/40 uppercase tracking-widest">
+                  <p className="font-extrabold text-lg leading-none mb-1">{Number(sub.price).toFixed(2)}{getCurrencySymbol()}</p>
+                  <p className="text-[10px] font-bold text-white/60 uppercase tracking-widest flex items-center justify-end gap-1">
+                    <Calendar className="w-2.5 h-2.5" />
                     {new Date(sub.nextRenewalDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                   </p>
                 </div>

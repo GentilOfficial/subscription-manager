@@ -1,5 +1,5 @@
-import site from '@/app/config/site';
 import { ALLOWED_COLORS, validateSubscription } from '@/app/utils/subscriptionValidation';
+import { useAuthStore } from '@/stores/auth';
 import { AlertTriangle } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { modal, subscriptions as subContent } from '../../config/content';
@@ -19,6 +19,7 @@ export default function SubscriptionModal({
   initialData,
   isEditing
 }) {
+  const { getCurrencySymbol } = useAuthStore();
   const [formData, setFormData] = useState({
     name: '',
     price: '',
@@ -105,7 +106,7 @@ export default function SubscriptionModal({
               value={formData.price}
               onChange={(e) => setFormData({ ...formData, price: e.target.value })}
               placeholder={modal.pricePlaceholder}
-              leftIcon={site.currency}
+              leftIcon={getCurrencySymbol()}
             />
           </div>
           <div className="flex-[1.5]">

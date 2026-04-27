@@ -1,10 +1,12 @@
+import { Calendar } from 'lucide-react';
 import Link from 'next/link';
-import SubscriptionIcon from '../SubscriptionIcon';
+import { useAuthStore } from '@/stores/auth';
 import { blocks } from '../../config/content';
-import site from '../../config/site';
+import SubscriptionIcon from '../SubscriptionIcon';
 import GlassCard from '../ui/GlassCard';
 
 export default function ActivityBlock({ subscriptions }) {
+  const { getCurrencySymbol } = useAuthStore();
   return (
     <GlassCard className="md:col-span-6 lg:col-span-5 p-8 md:p-10">
        <div className="flex justify-between items-center mb-8">
@@ -24,10 +26,16 @@ export default function ActivityBlock({ subscriptions }) {
                  <p className="text-xs font-semibold text-app-text-muted">{item.interval}</p>
                </div>
              </div>
-             <div className="text-right">
-               <p className="font-bold text-app-text dark:text-app-text-dark">{site.currency}{item.price}</p>
-               <p className={`text-xs font-bold uppercase tracking-wider ${item.status === 'Active' ? 'text-primary' : 'text-app-text-muted/50'}`}>{item.status}</p>
-             </div>
+              <div className="text-right">
+                <p className="font-bold text-app-text dark:text-app-text-dark">{item.price}{getCurrencySymbol()}</p>
+                <div className="flex flex-col items-end gap-1 mt-1">
+                  <p className={`text-[10px] font-bold uppercase tracking-wider ${item.status === 'Active' ? 'text-primary' : 'text-app-text-muted/50'}`}>{item.status}</p>
+                  <p className="text-[10px] font-bold text-app-text-muted flex items-center gap-1">
+                    <Calendar className="w-2.5 h-2.5" />
+                    {new Date(item.lastPaidDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                  </p>
+                </div>
+              </div>
            </div>
          )) : (
            <div className="text-app-text-muted font-medium text-center py-10">{blocks.activity.empty}</div>

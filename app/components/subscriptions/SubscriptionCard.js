@@ -1,6 +1,6 @@
+import { useAuthStore } from '@/stores/auth';
 import { ArrowRight, Calendar } from 'lucide-react';
 import { blocks } from '../../config/content';
-import site from '../../config/site';
 import SubscriptionIcon from '../SubscriptionIcon';
 import Badge from '../ui/Badge';
 import GlassCard from '../ui/GlassCard';
@@ -8,6 +8,7 @@ import GlassCard from '../ui/GlassCard';
 import { getDaysRemaining, getNextRenewalDate } from '../../utils/dateUtils';
 
 export default function SubscriptionCard({ sub, onClick }) {
+  const { getCurrencySymbol } = useAuthStore();
   const nextRenewalDate = getNextRenewalDate(sub.renewalDate, sub.interval);
   const daysRemaining = getDaysRemaining(nextRenewalDate);
 
@@ -30,7 +31,7 @@ export default function SubscriptionCard({ sub, onClick }) {
       
       <div className="mt-auto pt-6 border-t border-slate-200/50 dark:border-white/10 flex items-end justify-between">
         <div>
-          <p className="text-3xl sm:text-[2.5rem] leading-none font-extrabold tracking-tighter text-app-text dark:text-app-text-dark mb-1 whitespace-nowrap"><span className="text-lg sm:text-xl text-primary mr-0.5">{site.currency}</span>{Number(sub.price).toFixed(2)}</p>
+          <p className="text-3xl sm:text-[2.5rem] leading-none font-extrabold tracking-tighter text-app-text dark:text-app-text-dark mb-1 whitespace-nowrap"><span className="text-lg sm:text-xl text-primary mr-0.5">{getCurrencySymbol()}</span>{Number(sub.price).toFixed(2)}</p>
           <div className="flex items-center gap-2 mt-2 text-sm font-semibold text-app-text-muted">
             <span>{sub.interval}</span>
             {sub.renewalDate && (

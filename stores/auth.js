@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { supabaseBrowser } from '@/app/lib/supabase/client';
+import { currencies } from '@/app/config/content';
 
 export const useAuthStore = create((set, get) => ({
   user: null,
@@ -59,6 +60,11 @@ export const useAuthStore = create((set, get) => ({
       .eq('id', user.id);
     if (error) throw error;
     await get().fetchProfile(user.id);
+  },
+
+  getCurrencySymbol: () => {
+    const code = get().profile?.currency || 'EUR';
+    return currencies.find(c => c.code === code)?.symbol || '€';
   },
 
   signIn: async (email, password) => {

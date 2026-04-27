@@ -1,5 +1,10 @@
 import site from './site';
 
+export const currencies = [
+  { code: 'EUR', symbol: '€', label: 'EUR (€)' },
+  { code: 'USD', symbol: '$', label: 'USD ($)' },
+];
+
 export const landing = {
   badge: `${site.name} ${site.version}`,
   headingLine1: 'Own your',
@@ -191,6 +196,8 @@ export const settings = {
     usernameLabel: 'Username',
     usernamePlaceholder: 'Enter your nickname',
     usernameHint: 'Choose a nickname to display on your dashboard.',
+    currencyLabel: 'Global Currency',
+    currencyHint: 'Select the currency to use across the entire application.',
     updateBtn: 'Save Profile',
     updatingBtn: 'Saving...',
     successMsg: 'Profile updated successfully!',

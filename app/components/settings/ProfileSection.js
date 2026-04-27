@@ -3,16 +3,18 @@
 import { User } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useAuthStore } from '../../../stores/auth';
-import { settings } from '../../config/content';
+import { currencies, settings } from '../../config/content';
 import Button from '../ui/Button';
 import GlassCard from '../ui/GlassCard';
 import Input from '../ui/Input';
 import Label from '../ui/Label';
+import Select from '../ui/Select';
 import Spinner from '../ui/Spinner';
 
 export default function ProfileSection() {
   const { profile, updateProfile, isLoading } = useAuthStore();
   const [username, setUsername] = useState('');
+  const [currency, setCurrency] = useState('EUR');
   const [isUpdating, setIsUpdating] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [success, setSuccess] = useState('');
@@ -20,6 +22,9 @@ export default function ProfileSection() {
   useEffect(() => {
     if (profile?.username) {
       setUsername(profile.username);
+    }
+    if (profile?.currency) {
+      setCurrency(profile.currency);
     }
   }, [profile]);
 
@@ -35,7 +40,7 @@ export default function ProfileSection() {
 
     setIsUpdating(true);
     try {
-      await updateProfile({ username });
+      await updateProfile({ username, currency });
       setSuccess(settings.profile.successMsg);
       setTimeout(() => setSuccess(''), 3000);
     } catch (err) {
@@ -70,24 +75,43 @@ export default function ProfileSection() {
         </div>
       </div>
 
-      <form onSubmit={handleUpdate} className="mt-8 space-y-6 max-w-xl">
-        <div className="space-y-2">
-          <Label className="mb-3">
-            {settings.profile.usernameLabel}
-          </Label>
-          <Input
-            type="text"
-            variant="bgInput"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder={settings.profile.usernamePlaceholder}
-            maxLength={20}
-          />
-          <div className="flex justify-between px-2 pt-1 text-xs text-app-text-muted">
-            <span>{settings.profile.usernameHint}</span>
-            <span className={username.length === 20 ? 'text-red-500' : ''}>
-              {username.length}/20
-            </span>
+      <form onSubmit={handleUpdate} className="mt-8 space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <Label className="mb-3">
+              {settings.profile.usernameLabel}
+            </Label>
+            <Input
+              type="text"
+              variant="bgInput"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder={settings.profile.usernamePlaceholder}
+              maxLength={20}
+            />
+            <div className="flex justify-between px-2 pt-1 text-xs text-app-text-muted">
+              <span>{settings.profile.usernameHint}</span>
+              <span className={username.length === 20 ? 'text-red-500' : ''}>
+                {username.length}/20
+              </span>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label className="mb-3">
+              {settings.profile.currencyLabel}
+            </Label>
+            <Select
+              value={currency}
+              onChange={(e) => setCurrency(e.target.value)}
+            >
+              {currencies.map(c => (
+                <option key={c.code} value={c.code}>{c.label}</option>
+              ))}
+            </Select>
+            <p className="px-2 pt-1 text-xs text-app-text-muted">
+              {settings.profile.currencyHint}
+            </p>
           </div>
         </div>
 
@@ -106,7 +130,7 @@ export default function ProfileSection() {
         <div className="flex justify-end pt-5 border-t border-slate-200 dark:border-white/10">
           <Button 
             type="submit" 
-            disabled={isUpdating || username === (profile?.username || '')} 
+            disabled={isUpdating || (username === (profile?.username || '') && currency === (profile?.currency || 'EUR'))} 
             className="w-full sm:w-auto px-8 transition-all flex items-center justify-center gap-2"
           >
             {isUpdating && <Spinner size="sm" />}
