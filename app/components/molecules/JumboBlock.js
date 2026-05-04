@@ -1,7 +1,7 @@
 import { useAuthStore } from '@/stores/auth';
 import Link from 'next/link';
-import { blocks } from '../../config/content';
-import GlassCard from '../ui/GlassCard';
+import { blocks } from '@/app/config/content';
+import GlassCard from '@/app/components/atoms/GlassCard';
 
 export default function JumboBlock({ stats }) {
   const { getCurrencySymbol } = useAuthStore();

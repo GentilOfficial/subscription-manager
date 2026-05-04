@@ -2,14 +2,15 @@
 
 import { AlertTriangle } from 'lucide-react';
 import { useEffect, useMemo } from 'react';
-import { useAuthStore } from '../../stores/auth';
-import { useSubscriptionStore } from '../../stores/subscriptions';
-import AccentBlock from '../components/dashboard/AccentBlock';
-import ActivityBlock from '../components/dashboard/ActivityBlock';
-import ChartBlock from '../components/dashboard/ChartBlock';
-import JumboBlock from '../components/dashboard/JumboBlock';
-import { overview } from '../config/content';
-import { getDaysRemaining, getNextRenewalDate } from '../utils/dateUtils';
+import { useAuthStore } from '@/stores/auth';
+import { useSubscriptionStore } from '@/stores/subscriptions';
+import AccentBlock from '@/app/components/molecules/AccentBlock';
+import ActivityBlock from '@/app/components/molecules/ActivityBlock';
+import ChartBlock from '@/app/components/molecules/ChartBlock';
+import JumboBlock from '@/app/components/molecules/JumboBlock';
+import { overview } from '@/app/config/content';
+import { getDaysRemaining, getNextRenewalDate } from '@/app/utils/dateUtils';
+import { useDashboardStats } from '@/app/hooks/useDashboardStats';
 
 export default function DashboardOverview() {
   const { subscriptions, isLoading: subsLoading, error, init: initSubs } = useSubscriptionStore();
@@ -19,79 +20,7 @@ export default function DashboardOverview() {
     initSubs();
   }, [initSubs]);
 
-  const stats = useMemo(() => {
-    const active = subscriptions.filter(s => s.status === 'Active');
-
-    const totalMonthly = active.reduce((acc, sub) => {
-      let monthlyCost = sub.price;
-      if (sub.interval === 'Yearly') monthlyCost = sub.price / 12;
-      if (sub.interval === 'Weekly') monthlyCost = sub.price * 4.33;
-      return acc + monthlyCost;
-    }, 0);
-
-    const categoryTotals = active.reduce((acc, sub) => {
-      let monthlyCost = sub.price;
-      if (sub.interval === 'Yearly') monthlyCost = sub.price / 12;
-      if (sub.interval === 'Weekly') monthlyCost = sub.price * 4.33;
-
-      if (!acc[sub.category]) acc[sub.category] = 0;
-      acc[sub.category] += monthlyCost;
-      return acc;
-    }, {});
-
-    const categoryData = Object.keys(categoryTotals).map(cat => ({
-      name: cat,
-      value: Number(categoryTotals[cat].toFixed(2))
-    }));
-
-    const upcomingSubs = active.map(sub => {
-      const nextRenewal = getNextRenewalDate(sub.renewalDate, sub.interval);
-      if (!nextRenewal) return null;
-      const daysUntil = getDaysRemaining(nextRenewal);
-      
-      return { 
-        ...sub, 
-        nextRenewalDate: nextRenewal, 
-        daysUntil 
-      };
-    })
-    .filter(Boolean)
-    .filter(sub => sub.daysUntil >= 0 && sub.daysUntil <= 7)
-    .sort((a, b) => a.nextRenewalDate - b.nextRenewalDate)
-    .slice(0, 3);
-
-    const recentActivity = active.map(sub => {
-      const next = getNextRenewalDate(sub.renewalDate, sub.interval);
-      if (!next) return null;
-      
-      let lastPaid = new Date(next);
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-
-      if (next > today) {
-        if (sub.interval === 'Weekly') lastPaid.setDate(lastPaid.getDate() - 7);
-        else if (sub.interval === 'Monthly') lastPaid.setMonth(lastPaid.getMonth() - 1);
-        else if (sub.interval === 'Yearly') lastPaid.setFullYear(lastPaid.getFullYear() - 1);
-      }
-
-      const firstPaymentDate = new Date(sub.renewalDate);
-      firstPaymentDate.setHours(0, 0, 0, 0);
-      if (lastPaid < firstPaymentDate) return null;
-      
-      return { ...sub, lastPaidDate: lastPaid };
-    })
-    .filter(Boolean)
-    .sort((a, b) => b.lastPaidDate - a.lastPaidDate)
-    .slice(0, 5);
-
-    return { 
-      totalMonthly, 
-      activeCount: active.length, 
-      categoryData, 
-      upcomingSubs,
-      recentActivity
-    };
-  }, [subscriptions]);
+  const stats = useDashboardStats(subscriptions);
 
   if (subsLoading) {
     return null;

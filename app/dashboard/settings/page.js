@@ -1,9 +1,9 @@
 "use client";
 
-import CalendarFeedSection from '../../components/settings/CalendarFeedSection';
-import ChangePasswordSection from '../../components/settings/ChangePasswordSection';
-import ProfileSection from '../../components/settings/ProfileSection';
-import { settings } from '../../config/content';
+import CalendarFeedSection from '@/app/components/organisms/CalendarFeedSection';
+import ChangePasswordSection from '@/app/components/organisms/ChangePasswordSection';
+import ProfileSection from '@/app/components/organisms/ProfileSection';
+import { settings } from '@/app/config/content';
 
 export default function SettingsPage() {
   return (

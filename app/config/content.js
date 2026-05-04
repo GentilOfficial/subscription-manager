@@ -259,3 +259,68 @@ export const calendarSync = {
     google: 'Google Calendar: Add calendar > From URL',
   }
 };
+
+export const footer = {
+  privacyPolicy: 'Privacy Policy',
+  cookiePolicy: 'Cookie Policy',
+};
+
+export const privacyPolicy = {
+  title: 'Privacy Policy',
+  lastUpdated: 'Last Updated: May 2026',
+  sections: [
+    {
+      heading: '1. Information We Collect',
+      content: 'We collect minimal information necessary to provide our service. This includes your email address (for authentication purposes), an optional username, and the subscription data you choose to input (such as service names, pricing, billing cycles, and categories).'
+    },
+    {
+      heading: '2. How We Use Your Information',
+      content: 'The information collected is used exclusively to operate the application, manage your secure session, and present your dashboard. We do not use your data for marketing or profiling.'
+    },
+    {
+      heading: '3. Data Storage and Security',
+      content: 'Your data is securely stored using Supabase, which provides robust backend infrastructure and database security. All communication between your browser and our servers is encrypted.'
+    },
+    {
+      heading: '4. Third-Party Sharing',
+      content: 'We do not sell, trade, or otherwise transfer your personal information to outside parties. There are no third-party trackers or marketing analytics tools integrated into this application.'
+    },
+    {
+      heading: '5. Calendar Synchronization API',
+      content: 'If you enable the Calendar Feed (ICS) feature, the application generates a unique URL containing a secure token. This allows calendar apps to read your subscription data (names, prices, renewal dates). Please note that this specific API endpoint is accessible without authentication to anyone who possesses the exact link. Keep your feed link private and revoke it from the Settings page if you believe it has been compromised.'
+    },
+    {
+      heading: '6. Your Rights',
+      content: `You have the right to access, modify, or delete your personal data at any time. If you wish to permanently delete your account and all associated data, you can do so by contacting us at ${site.contactEmail}.`
+    }
+  ],
+  backHome: 'Back to Home'
+};
+
+export const cookiePolicy = {
+  title: 'Cookie Policy',
+  lastUpdated: 'Last Updated: May 2026',
+  sections: [
+    {
+      heading: '1. What Are Cookies?',
+      content: 'Cookies are small text files stored on your device when you visit a website. They are widely used to make websites work more efficiently and to provide a secure user experience.'
+    },
+    {
+      heading: '2. Essential Cookies',
+      content: 'We use strictly necessary cookies provided by our authentication service (Supabase) to maintain your logged-in session securely. Without these cookies, you would not be able to log in or access your dashboard.'
+    },
+    {
+      heading: '3. Local Storage',
+      content: "We utilize your browser's Local Storage strictly to remember your user interface preferences, such as your choice of Light or Dark mode. This data never leaves your device."
+    },
+    {
+      heading: '4. Analytics and Tracking',
+      content: 'We respect your privacy. This application does not use any third-party analytics cookies, marketing trackers, or social media pixels.'
+    },
+    {
+      heading: '5. Managing Cookies',
+      content: 'Since we only use essential cookies, there is no option to opt-out within the application. However, you can manage or delete cookies at any time through your browser settings.'
+    }
+  ],
+  backHome: 'Back to Home'
+};

@@ -3,13 +3,13 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { useAuthStore } from "../../stores/auth"
-import ThemeToggle from "../components/ThemeToggle"
-import { login } from "../config/content"
-import Input from "../components/ui/Input"
-import Label from "../components/ui/Label"
-import Spinner from "../components/ui/Spinner"
-import GlassCard from "../components/ui/GlassCard"
+import { useAuthStore } from '@/stores/auth'
+import ThemeToggle from '@/app/components/molecules/ThemeToggle'
+import GlassCard from '@/app/components/atoms/GlassCard'
+import Input from '@/app/components/atoms/Input'
+import Label from '@/app/components/atoms/Label'
+import Spinner from '@/app/components/atoms/Spinner'
+import { login } from '@/app/config/content'
 
 export default function LoginPage() {
   const router = useRouter()
@@ -46,7 +46,7 @@ export default function LoginPage() {
       <div className="absolute top-6 right-6 z-50">
         <ThemeToggle />
       </div>
-      <main className="min-h-screen flex items-center justify-center p-6 relative overflow-x-hidden bg-app-bg dark:bg-app-bg-dark text-app-text dark:text-app-text-dark selection:bg-primary-muted selection:text-primary">
+      <main className="flex-1 flex items-center justify-center p-6 relative overflow-x-hidden bg-app-bg dark:bg-app-bg-dark text-app-text dark:text-app-text-dark selection:bg-primary-muted selection:text-primary">
         <div className="relative z-10 w-full max-w-lg mb-20">
           <div className="text-center mb-12">
             <Link

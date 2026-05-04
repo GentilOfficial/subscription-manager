@@ -3,10 +3,10 @@
 import { getIcsToken, refreshIcsToken } from '@/stores/ics';
 import { AlertTriangle, Calendar, Check } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { calendarSync } from '../../config/content';
-import BaseModal from '../ui/BaseModal';
-import Button from '../ui/Button';
-import Spinner from '../ui/Spinner';
+import { calendarSync } from '@/app/config/content';
+import BaseModal from '@/app/components/organisms/BaseModal';
+import Button from '@/app/components/atoms/Button';
+import Spinner from '@/app/components/atoms/Spinner';
 
 export default function CalendarSyncModal({ isOpen, onClose }) {
   const [step, setStep] = useState(1);

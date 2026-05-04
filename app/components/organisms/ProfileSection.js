@@ -2,14 +2,14 @@
 
 import { User } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { useAuthStore } from '../../../stores/auth';
-import { currencies, settings } from '../../config/content';
-import Button from '../ui/Button';
-import GlassCard from '../ui/GlassCard';
-import Input from '../ui/Input';
-import Label from '../ui/Label';
-import Select from '../ui/Select';
-import Spinner from '../ui/Spinner';
+import { useAuthStore } from '@/stores/auth';
+import { currencies, settings } from '@/app/config/content';
+import Button from '@/app/components/atoms/Button';
+import GlassCard from '@/app/components/atoms/GlassCard';
+import Input from '@/app/components/atoms/Input';
+import Label from '@/app/components/atoms/Label';
+import Select from '@/app/components/atoms/Select';
+import Spinner from '@/app/components/atoms/Spinner';
 
 export default function ProfileSection() {
   const { profile, updateProfile, isLoading } = useAuthStore();

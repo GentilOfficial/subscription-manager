@@ -3,13 +3,13 @@
 import { getIcsToken, revokeIcsToken } from '@/stores/ics';
 import { Calendar } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { calendarSync, settings } from '../../config/content';
-import CalendarSyncModal from '../subscriptions/CalendarSyncModal';
-import Button from '../ui/Button';
-import EmptyState from '../ui/EmptyState';
-import GlassCard from '../ui/GlassCard';
-import Spinner from '../ui/Spinner';
-import RevokeModal from './RevokeModal';
+import { calendarSync, settings } from '@/app/config/content';
+import CalendarSyncModal from '@/app/components/organisms/CalendarSyncModal';
+import Button from '@/app/components/atoms/Button';
+import EmptyState from '@/app/components/atoms/EmptyState';
+import GlassCard from '@/app/components/atoms/GlassCard';
+import Spinner from '@/app/components/atoms/Spinner';
+import RevokeModal from '@/app/components/organisms/RevokeModal';
 
 export default function CalendarFeedSection() {
   const [token, setToken] = useState(null);

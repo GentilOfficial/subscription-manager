@@ -1,9 +1,9 @@
 "use client";
 
 import { AlertTriangle } from 'lucide-react';
-import { settings } from '../../config/content';
-import BaseModal from '../ui/BaseModal';
-import Button from '../ui/Button';
+import { settings } from '@/app/config/content';
+import BaseModal from '@/app/components/organisms/BaseModal';
+import Button from '@/app/components/atoms/Button';
 
 export default function RevokeModal({ isOpen, onClose, onConfirm }) {
   return (

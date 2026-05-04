@@ -2,13 +2,13 @@
 
 import { Check, Lock } from 'lucide-react';
 import { useMemo, useState } from 'react';
-import { useAuthStore } from '../../../stores/auth';
-import { settings } from '../../config/content';
-import Button from '../ui/Button';
-import GlassCard from '../ui/GlassCard';
-import Input from '../ui/Input';
-import Label from '../ui/Label';
-import Spinner from '../ui/Spinner';
+import { useAuthStore } from '@/stores/auth';
+import { settings } from '@/app/config/content';
+import Button from '@/app/components/atoms/Button';
+import GlassCard from '@/app/components/atoms/GlassCard';
+import Input from '@/app/components/atoms/Input';
+import Label from '@/app/components/atoms/Label';
+import Spinner from '@/app/components/atoms/Spinner';
 
 export default function ChangePasswordSection() {
   const { updatePassword } = useAuthStore();

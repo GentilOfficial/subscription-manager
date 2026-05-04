@@ -3,16 +3,16 @@
 import { useToast } from "@/app/context/ToastContext";
 import { Archive, Calendar, Plus, Download, Upload } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useSubscriptionStore } from "../../../stores/subscriptions";
-import CsvImportModal from "../../components/CsvImportModal";
-import CalendarSyncModal from "../../components/subscriptions/CalendarSyncModal";
-import SubscriptionCard from "../../components/subscriptions/SubscriptionCard";
-import SubscriptionModal from "../../components/subscriptions/SubscriptionModal";
-import { calendarSync, notifications, subscriptions as content } from "../../config/content";
-import { exportCsv } from "../../utils/exportCsv";
+import { useSubscriptionStore } from '@/stores/subscriptions';
+import CsvImportModal from '@/app/components/organisms/CsvImportModal';
+import CalendarSyncModal from '@/app/components/organisms/CalendarSyncModal';
+import SubscriptionCard from '@/app/components/molecules/SubscriptionCard';
+import SubscriptionModal from '@/app/components/organisms/SubscriptionModal';
+import { calendarSync, notifications, subscriptions as content } from '@/app/config/content';
+import { exportCsv } from '@/app/utils/exportCsv';
 
-import Button from "../../components/ui/Button";
-import EmptyState from "../../components/ui/EmptyState";
+import Button from '@/app/components/atoms/Button';
+import EmptyState from '@/app/components/atoms/EmptyState';
 
 export default function SubscriptionsPage() {
   const { addToast } = useToast();

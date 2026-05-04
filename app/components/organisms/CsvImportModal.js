@@ -5,9 +5,9 @@ import { normalizeSubscription } from '@/app/utils/subscriptionValidation';
 import { useSubscriptionStore } from '@/stores/subscriptions';
 import { Upload } from 'lucide-react';
 import { useState } from 'react';
-import { csvImport, notifications } from '../config/content';
-import BaseModal from './ui/BaseModal';
-import Button from './ui/Button';
+import { csvImport, notifications } from '@/app/config/content';
+import BaseModal from '@/app/components/organisms/BaseModal';
+import Button from '@/app/components/atoms/Button';
 
 export default function CsvImportModal({ isOpen, onClose }) {
   const { addToast } = useToast();

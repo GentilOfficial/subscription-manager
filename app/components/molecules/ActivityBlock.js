@@ -1,9 +1,9 @@
 import { Calendar } from 'lucide-react';
 import Link from 'next/link';
 import { useAuthStore } from '@/stores/auth';
-import { blocks } from '../../config/content';
-import SubscriptionIcon from '../SubscriptionIcon';
-import GlassCard from '../ui/GlassCard';
+import { blocks } from '@/app/config/content';
+import SubscriptionIcon from '@/app/components/atoms/SubscriptionIcon';
+import GlassCard from '@/app/components/atoms/GlassCard';
 
 export default function ActivityBlock({ subscriptions }) {
   const { getCurrencySymbol } = useAuthStore();

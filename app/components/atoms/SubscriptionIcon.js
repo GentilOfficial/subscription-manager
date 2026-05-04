@@ -1,20 +1,16 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import Spinner from "./ui/Spinner";
+import Spinner from '@/app/components/atoms/Spinner';
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
-export default function SubscriptionIcon({ name, color, className = "w-12 h-12 rounded-2xl text-lg shrink-0" }) {
+export default function SubscriptionIcon({ name, color, className = "w-12 h-12 rounded-2xl text-lg shrink-0", imgRoundedClassName = "rounded-2xl" }) {
   const [imgFailed, setImgFailed] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const imgRef = useRef(null);
-
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setImgFailed(false);
     setIsLoading(true);
-
-    if (imgRef.current?.complete) {
-      setIsLoading(false);
-    }
   }, [name]);
 
   if (imgFailed || !name) {
@@ -32,12 +28,13 @@ export default function SubscriptionIcon({ name, color, className = "w-12 h-12 r
           <Spinner size="md" className="text-primary/50 w-1/2 h-1/2" />
         </div>
       )}
-      <img
-        ref={imgRef}
+      <Image
         key={name}
         src={`/api/favicon?name=${encodeURIComponent(name)}`}
         alt={`${name} logo`}
-        className={`w-full h-full object-contain rounded-xl transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+        fill
+        unoptimized
+        className={`object-contain p-1.5 transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'} ${imgRoundedClassName}`}
         onLoad={() => setIsLoading(false)}
         onError={() => {
           setImgFailed(true);

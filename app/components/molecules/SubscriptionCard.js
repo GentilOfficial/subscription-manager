@@ -1,11 +1,11 @@
+import Badge from '@/app/components/atoms/Badge';
+import GlassCard from '@/app/components/atoms/GlassCard';
+import SubscriptionIcon from '@/app/components/atoms/SubscriptionIcon';
+import { blocks } from '@/app/config/content';
 import { useAuthStore } from '@/stores/auth';
 import { ArrowRight, Calendar } from 'lucide-react';
-import { blocks } from '../../config/content';
-import SubscriptionIcon from '../SubscriptionIcon';
-import Badge from '../ui/Badge';
-import GlassCard from '../ui/GlassCard';
 
-import { getDaysRemaining, getNextRenewalDate } from '../../utils/dateUtils';
+import { getDaysRemaining, getNextRenewalDate } from '@/app/utils/dateUtils';
 
 export default function SubscriptionCard({ sub, onClick }) {
   const { getCurrencySymbol } = useAuthStore();

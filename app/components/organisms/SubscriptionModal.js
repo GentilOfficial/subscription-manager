@@ -2,12 +2,13 @@ import { ALLOWED_COLORS, validateSubscription } from '@/app/utils/subscriptionVa
 import { useAuthStore } from '@/stores/auth';
 import { AlertTriangle } from 'lucide-react';
 import { useEffect, useState } from 'react';
-import { modal, subscriptions as subContent } from '../../config/content';
-import BaseModal from '../ui/BaseModal';
-import Button from '../ui/Button';
-import Input from '../ui/Input';
-import Label from '../ui/Label';
-import Select from '../ui/Select';
+import { modal, subscriptions as subContent } from '@/app/config/content';
+import BaseModal from '@/app/components/organisms/BaseModal';
+import Button from '@/app/components/atoms/Button';
+import FormField from '@/app/components/molecules/FormField';
+import Label from '@/app/components/atoms/Label';
+import Select from '@/app/components/atoms/Select';
+import { SUBSCRIPTION_INTERVALS, SUBSCRIPTION_STATUSES } from '@/app/config/constants';
 
 const AVAILABLE_COLORS = ALLOWED_COLORS;
 
@@ -20,32 +21,35 @@ export default function SubscriptionModal({
   isEditing
 }) {
   const { getCurrencySymbol } = useAuthStore();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState(() => ({
     name: '',
     price: '',
-    interval: 'Monthly',
-    status: 'Active',
+    interval: SUBSCRIPTION_INTERVALS.MONTHLY,
+    status: SUBSCRIPTION_STATUSES.ACTIVE,
     category: 'Other',
     color: AVAILABLE_COLORS[Math.floor(Math.random() * AVAILABLE_COLORS.length)],
     renewalDate: new Date().toISOString().split('T')[0]
-  });
+  }));
   const [formError, setFormError] = useState('');
 
   useEffect(() => {
     if (isOpen) {
       if (initialData) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setFormData(initialData);
       } else {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setFormData({
           name: '',
           price: '',
-          interval: 'Monthly',
-          status: 'Active',
+          interval: SUBSCRIPTION_INTERVALS.MONTHLY,
+          status: SUBSCRIPTION_STATUSES.ACTIVE,
           category: 'Other',
           color: AVAILABLE_COLORS[Math.floor(Math.random() * AVAILABLE_COLORS.length)],
           renewalDate: new Date().toISOString().split('T')[0]
         });
       }
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFormError('');
     }
   }, [isOpen, initialData]);
@@ -85,53 +89,49 @@ export default function SubscriptionModal({
           </div>
         )}
 
-        <div>
-          <Label>{modal.nameLabel}</Label>
-          <Input
-            type="text"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            maxLength={25}
-            placeholder={modal.namePlaceholder}
-          />
-        </div>
+        <FormField
+          label={modal.nameLabel}
+          type="text"
+          value={formData.name}
+          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          maxLength={25}
+          placeholder={modal.namePlaceholder}
+        />
 
         <div className="flex flex-col sm:flex-row gap-4">
-          <div className="flex-1">
-            <Label>{modal.priceLabel}</Label>
-            <Input
-              type="number"
-              step="0.01"
-              min="0"
-              value={formData.price}
-              onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-              placeholder={modal.pricePlaceholder}
-              leftIcon={getCurrencySymbol()}
-            />
-          </div>
+          <FormField
+            className="flex-1"
+            label={modal.priceLabel}
+            type="number"
+            step="0.01"
+            min="0"
+            value={formData.price}
+            onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+            placeholder={modal.pricePlaceholder}
+            leftIcon={getCurrencySymbol()}
+          />
           <div className="flex-[1.5]">
             <Label>{modal.intervalLabel}</Label>
             <Select
               value={formData.interval}
               onChange={(e) => setFormData({ ...formData, interval: e.target.value })}
             >
-              <option value="Weekly">{modal.intervals.weekly}</option>
-              <option value="Monthly">{modal.intervals.monthly}</option>
-              <option value="Yearly">{modal.intervals.yearly}</option>
+              <option value={SUBSCRIPTION_INTERVALS.WEEKLY}>{modal.intervals.weekly}</option>
+              <option value={SUBSCRIPTION_INTERVALS.MONTHLY}>{modal.intervals.monthly}</option>
+              <option value={SUBSCRIPTION_INTERVALS.YEARLY}>{modal.intervals.yearly}</option>
             </Select>
           </div>
         </div>
 
         <div className="flex gap-4">
-          <div className="flex-1 min-w-0">
-            <Label>{modal.renewalLabel}</Label>
-            <Input
-              type="date"
-              value={formData.renewalDate}
-              onChange={(e) => setFormData({ ...formData, renewalDate: e.target.value })}
-              className="cursor-pointer appearance-none flex-1 min-w-0 [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
-            />
-          </div>
+          <FormField
+            className="flex-1 min-w-0"
+            label={modal.renewalLabel}
+            type="date"
+            value={formData.renewalDate}
+            onChange={(e) => setFormData({ ...formData, renewalDate: e.target.value })}
+            inputClassName="cursor-pointer appearance-none flex-1 min-w-0 [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
+          />
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4">
@@ -150,9 +150,9 @@ export default function SubscriptionModal({
               value={formData.status}
               onChange={(e) => setFormData({ ...formData, status: e.target.value })}
             >
-              <option value="Active">{modal.statuses.active}</option>
-              <option value="Paused">{modal.statuses.paused}</option>
-              <option value="Cancelled">{modal.statuses.cancelled}</option>
+              <option value={SUBSCRIPTION_STATUSES.ACTIVE}>{modal.statuses.active}</option>
+              <option value={SUBSCRIPTION_STATUSES.PAUSED}>{modal.statuses.paused}</option>
+              <option value={SUBSCRIPTION_STATUSES.CANCELLED}>{modal.statuses.cancelled}</option>
             </Select>
           </div>
         </div>

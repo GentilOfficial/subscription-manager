@@ -1,7 +1,7 @@
 import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 import { useAuthStore } from '@/stores/auth';
-import { blocks } from '../../config/content';
-import GlassCard from '../ui/GlassCard';
+import { blocks } from '@/app/config/content';
+import GlassCard from '@/app/components/atoms/GlassCard';
 
 const COLORS = ['#ea580c', '#fb923c', '#e11d48', '#fbbf24', '#f43f5e', '#d97706', '#be123c', '#9a3412'];
 

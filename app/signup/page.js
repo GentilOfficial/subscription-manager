@@ -3,9 +3,9 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
-import { useAuthStore } from "../../stores/auth"
-import ThemeToggle from "../components/ThemeToggle"
-import { signup } from "../config/content"
+import { useAuthStore } from '@/stores/auth'
+import ThemeToggle from '@/app/components/molecules/ThemeToggle'
+import { signup } from '@/app/config/content'
 
 export default function SignUpPage() {
   const router = useRouter()
@@ -22,7 +22,7 @@ export default function SignUpPage() {
       <div className="absolute top-6 right-6 z-50">
         <ThemeToggle />
       </div>
-      <main className="min-h-screen flex items-center justify-center p-6 relative overflow-x-hidden bg-app-bg dark:bg-app-bg-dark text-app-text dark:text-app-text-dark selection:bg-primary-muted selection:text-primary">
+      <main className="flex-1 flex items-center justify-center p-6 relative overflow-x-hidden bg-app-bg dark:bg-app-bg-dark text-app-text dark:text-app-text-dark selection:bg-primary-muted selection:text-primary">
         <div className="relative z-10 w-full max-w-lg mb-20">
           <div className="text-center mb-12">
             <Link

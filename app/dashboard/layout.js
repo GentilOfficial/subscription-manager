@@ -5,10 +5,10 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { useEffect } from "react"
-import { useAuthStore } from "../../stores/auth"
-import ThemeToggle from "../components/ThemeToggle"
-import Spinner from "../components/ui/Spinner"
-import { navbar } from "../config/content"
+import { useAuthStore } from '@/stores/auth'
+import ThemeToggle from '@/app/components/molecules/ThemeToggle'
+import Spinner from '@/app/components/atoms/Spinner'
+import { navbar } from '@/app/config/content'
 
 function LogoutButton() {
   const router = useRouter()

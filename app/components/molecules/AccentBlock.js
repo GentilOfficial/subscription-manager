@@ -1,8 +1,8 @@
-import { Calendar } from 'lucide-react';
+import GlassCard from '@/app/components/atoms/GlassCard';
+import SubscriptionIcon from '@/app/components/atoms/SubscriptionIcon';
+import { blocks } from '@/app/config/content';
 import { useAuthStore } from '@/stores/auth';
-import { blocks } from '../../config/content';
-import SubscriptionIcon from '../SubscriptionIcon';
-import GlassCard from '../ui/GlassCard';
+import { Calendar } from 'lucide-react';
 
 export default function AccentBlock({ upcomingSubs = [] }) {
   const { getCurrencySymbol } = useAuthStore();
@@ -49,6 +49,7 @@ export default function AccentBlock({ upcomingSubs = [] }) {
                       name={sub.name} 
                       color={sub.color} 
                       className="w-12 h-12 rounded-xl shadow-lg ring-2 ring-white/20 group-hover/item:scale-110 transition-transform" 
+                      imgRoundedClassName="rounded-xl"
                     />
                     {sub.daysUntil === 0 && (
                       <span className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full animate-ping" />
