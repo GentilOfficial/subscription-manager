@@ -9,9 +9,11 @@ Subet is a modern, high-performance web application designed to help you regain 
 - **Interactive Analytics**: Visualise your spending distribution by category using dynamic charts powered by Recharts.
 - **Smart Icons**: Automatic favicon fetching for your services using Unavatar, with intelligent fallbacks.
 - **Bulk Import**: Seamlessly migrate your data from other platforms via CSV import.
+- **Calendar Integration**: Export your upcoming renewals as ICS events.
 - **Responsive "Floating Island" Navbar**: A state-of-the-art navigation experience that adapts gracefully to any device.
 - **Dark Mode Native**: Fully optimized for both light and dark environments with smooth transitions.
 - **Semantic Theme System**: Built on Tailwind v4 variables for effortless skinning and consistent branding.
+- **Privacy & Security**: Built-in privacy and cookie policies, robust authentication proxy, and user account deletion.
 
 ## 🛠 Tech Stack
 
@@ -27,7 +29,7 @@ Subet is a modern, high-performance web application designed to help you regain 
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/subscription-manager.git
+git clone https://github.com/GentilOfficial/subscription-manager.git
 cd subscription-manager
 ```
 
@@ -45,7 +47,7 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your_supabase_publishable_key
 
 ### 4. Database Initialization
 Run the provided SQL schema in your Supabase SQL Editor:
-- [supabase_schema.sql](file:///Users/federico/Documents/GitHub/Projects/subscription-manager/supabase_schema.sql)
+- [supabase_schema.sql](./supabase_schema.sql)
 
 ### 5. Start the development server
 ```bash
@@ -56,10 +58,12 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## 📁 Project Structure
 
 - `/app`: Next.js App Router pages and layouts.
-- `/app/components`: Reusable UI components and page sections.
+- `/app/components`: Atomic Design UI components (`atoms`, `molecules`, `organisms`).
+- `/app/hooks`: Custom React hooks for abstracted business logic.
 - `/app/config`: Centralized content and site configuration (`content.js`, `site.js`).
 - `/stores`: Zustand stores for global state management.
 - `/public`: Static assets and icons.
+- `proxy.js`: Custom authentication proxy and middleware logic.
 
 ## 📄 License
 
