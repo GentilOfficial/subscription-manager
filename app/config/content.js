@@ -1,3 +1,4 @@
+import dedent from 'dedent';
 import site from './site';
 
 export const currencies = [
@@ -270,28 +271,98 @@ export const privacyPolicy = {
   lastUpdated: 'Last Updated: May 2026',
   sections: [
     {
-      heading: '1. Information We Collect',
-      content: 'We collect minimal information necessary to provide our service. This includes your email address (for authentication purposes), an optional username, and the subscription data you choose to input (such as service names, pricing, billing cycles, and categories).'
+      heading: '1. Data Controller',
+      content: `This application is operated by ${site.ownerName}. As the sole Data Controller, I am responsible for your personal data and its lawful processing under the EU General Data Protection Regulation (GDPR – Regulation 2016/679). You can contact me at [${site.contactEmail}](mailto:${site.contactEmail}).`
     },
     {
-      heading: '2. How We Use Your Information',
-      content: 'The information collected is used exclusively to operate the application, manage your secure session, and present your dashboard. We do not use your data for marketing or profiling.'
+      heading: '2. Information I Collect',
+      content: dedent`
+        I collect only the minimum data necessary to provide this service. This includes:
+
+        - Your **email address** (required for authentication)
+        - An optional **display name**
+        - The **subscription data** you voluntarily input (such as service names, pricing, billing cycles, and categories)
+
+        I do not collect any sensitive personal data.
+      `
     },
     {
-      heading: '3. Data Storage and Security',
-      content: 'Your data is securely stored using Supabase, which provides robust backend infrastructure and database security. All communication between your browser and our servers is encrypted.'
+      heading: '3. Legal Basis for Processing',
+      content: dedent`
+        I process your personal data on the following legal bases under Article 6 GDPR:
+
+        - **(a) Performance of a contract** – processing your email and account data is necessary to provide the service you signed up for.
+        - **(b) Legitimate interest** – storing your session securely to prevent unauthorized access to your account.
+      `
     },
     {
-      heading: '4. Third-Party Sharing',
-      content: 'We do not sell, trade, or otherwise transfer your personal information to outside parties. There are no third-party trackers or marketing analytics tools integrated into this application.'
+      heading: '4. How I Use Your Information',
+      content: dedent`
+        Your data is used exclusively to:
+
+        - Operate the application
+        - Authenticate your identity
+        - Manage your secure session
+        - Display your personal dashboard
+
+        I do not use your data for marketing, advertising, or automated profiling of any kind.
+      `
     },
     {
-      heading: '5. Calendar Synchronization API',
-      content: 'If you enable the Calendar Feed (ICS) feature, the application generates a unique URL containing a secure token. This allows calendar apps to read your subscription data (names, prices, renewal dates). Please note that this specific API endpoint is accessible without authentication to anyone who possesses the exact link. Keep your feed link private and revoke it from the Settings page if you believe it has been compromised.'
+      heading: '5. Data Retention',
+      content: dedent`
+        I retain your personal data for as long as your account remains active.
+
+        - If you **delete your account**, all associated personal data is permanently removed within **30 days**.
+        - **Session cookies** are cleared when you log out or when your browser session ends.
+      `
     },
     {
-      heading: '6. Your Rights',
-      content: `You have the right to access, modify, or delete your personal data at any time. If you wish to permanently delete your account and all associated data, you can do so by contacting us at ${site.contactEmail}.`
+      heading: '6. Data Storage, Security and International Transfers',
+      content: dedent`
+        Your data is stored using **Supabase** (Supabase Inc., USA), which acts as my Data Processor under a Data Processing Agreement (DPA) that includes the EU Standard Contractual Clauses (SCCs), as required by Article 46 GDPR for transfers outside the European Economic Area.
+
+        - All data in transit is encrypted via **HTTPS/TLS**
+        - Supabase infrastructure complies with **SOC 2 Type II** standards
+
+        For more details, see [Supabase's privacy policy](https://supabase.com/privacy).
+      `
+    },
+    {
+      heading: '7. Third-Party Sharing',
+      content: dedent`
+        I do not sell, trade, or otherwise transfer your personal data to third parties for commercial purposes.
+
+        **Supabase** is the only external party that processes your data, strictly as a data processor acting on my behalf. There are no third-party advertising trackers, marketing tools, or social media pixels integrated into this application.
+      `
+    },
+    {
+      heading: '8. Calendar Synchronization API',
+      content: dedent`
+        If you enable the **Calendar Feed (ICS)** feature, the application generates a unique URL containing a secure token. This allows calendar applications to read your subscription data (service names, prices, renewal dates).
+
+        > This endpoint *does not require authentication* - anyone in possession of the exact URL can access the feed. Keep your feed link private.
+
+        You can **revoke it at any time** from the Settings page, which will immediately invalidate the previous URL.
+      `
+    },
+    {
+      heading: '9. Your Rights under GDPR',
+      content: dedent`
+        Under the GDPR, you have the following rights regarding your personal data:
+
+        - **Right of access** – obtain a copy of the data I hold about you.
+        - **Right to rectification** – correct inaccurate or incomplete data.
+        - **Right to erasure** ("right to be forgotten") – request permanent deletion of your data.
+        - **Right to restriction of processing** – ask me to limit how I use your data.
+        - **Right to data portability** – receive your data in a structured, machine-readable format.
+        - **Right to object** – object to processing based on legitimate interests.
+        - **Right to withdraw consent** – withdraw it at any time without affecting prior lawfulness.
+
+        To exercise any of these rights, contact me at [${site.contactEmail}](mailto:${site.contactEmail}). I will respond within **30 days**.
+
+        If you believe your rights have been violated, you have the right to lodge a complaint with your national data protection authority.
+      `
     }
   ],
   backHome: 'Back to Home'
@@ -303,23 +374,61 @@ export const cookiePolicy = {
   sections: [
     {
       heading: '1. What Are Cookies?',
-      content: 'Cookies are small text files stored on your device when you visit a website. They are widely used to make websites work more efficiently and to provide a secure user experience.'
+      content: `Cookies are small text files stored on your device when you visit a website. They are widely used to make websites function correctly and to provide a secure, consistent user experience across sessions.`
     },
     {
-      heading: '2. Essential Cookies',
-      content: 'We use strictly necessary cookies provided by our authentication service (Supabase) to maintain your logged-in session securely. Without these cookies, you would not be able to log in or access your dashboard.'
+      heading: '2. Cookies I Use',
+      content: dedent`
+        This application uses **only strictly necessary cookies**, specifically session cookies issued by the authentication provider (Supabase).
+
+        These cookies are essential to maintain your logged-in state securely. Without them, you would not be able to sign in or access your dashboard.
+
+        > No cookies are set before you actively log in.
+      `
     },
     {
       heading: '3. Local Storage',
-      content: "We utilize your browser's Local Storage strictly to remember your user interface preferences, such as your choice of Light or Dark mode. This data never leaves your device."
+      content: dedent`
+        I use your browser's **Local Storage** solely to remember UI preferences, such as your selected Light or Dark mode.
+
+        This data is stored only on your device and is **never transmitted** to my server or to any third party.
+      `
     },
     {
-      heading: '4. Analytics and Tracking',
-      content: 'We respect your privacy. This application does not use any third-party analytics cookies, marketing trackers, or social media pixels.'
+      heading: '4. Cookies I Do Not Use',
+      content: dedent`
+        I do not use:
+
+        - Analytics cookies
+        - Marketing cookies
+        - Advertising trackers
+        - Social media pixels
+        - Any other non-essential cookies
+
+        No third-party cookies are set by this application.
+      `
     },
     {
-      heading: '5. Managing Cookies',
-      content: 'Since we only use essential cookies, there is no option to opt-out within the application. However, you can manage or delete cookies at any time through your browser settings.'
+      heading: '5. Legal Basis and Consent',
+      content: dedent`
+        Strictly necessary cookies are **exempt from consent requirements** under the EU ePrivacy Directive and national implementations (such as the Italian Cookie Law), as they are technically indispensable for the service to function.
+
+        Because I use no non-essential cookies, **no cookie consent banner is required**. This policy serves as the required prior disclosure of cookie usage.
+      `
+    },
+    {
+      heading: '6. Managing and Deleting Cookies',
+      content: dedent`
+        You can view, manage, or delete cookies at any time through your browser settings.
+
+        > Disabling session cookies will prevent you from logging in.
+
+        Clearing Local Storage from your browser settings will reset any saved UI preferences.
+      `
+    },
+    {
+      heading: '7. Contact',
+      content: `For any questions about the use of cookies or this policy, contact me at [${site.contactEmail}](mailto:${site.contactEmail}).`
     }
   ],
   backHome: 'Back to Home'

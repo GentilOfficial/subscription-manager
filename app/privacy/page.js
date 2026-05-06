@@ -1,10 +1,11 @@
 "use client";
 
+import GlassCard from '@/app/components/atoms/GlassCard';
+import ThemeToggle from '@/app/components/molecules/ThemeToggle';
+import { privacyPolicy } from '@/app/config/content';
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import ThemeToggle from '@/app/components/molecules/ThemeToggle';
-import GlassCard from '@/app/components/atoms/GlassCard';
-import { privacyPolicy } from '@/app/config/content';
+import MarkedText from '../components/atoms/MarkedText';
 
 export default function PrivacyPolicyPage() {
   return (
@@ -38,7 +39,7 @@ export default function PrivacyPolicyPage() {
                   <h2 className="text-xl font-bold mb-3 text-app-text dark:text-app-text-dark">
                     {section.heading}
                   </h2>
-                  <p>{section.content}</p>
+                  <MarkedText text={section.content} />
                 </section>
               ))}
             </div>
