@@ -332,7 +332,6 @@ export const privacyPolicy = {
       heading: '7. Third-Party Sharing',
       content: dedent`
         I do not sell, trade, or otherwise transfer your personal data to third parties for commercial purposes.
-
         **Supabase** is the only external party that processes your data, strictly as a data processor acting on my behalf. There are no third-party advertising trackers, marketing tools, or social media pixels integrated into this application.
       `
     },
@@ -360,7 +359,6 @@ export const privacyPolicy = {
         - **Right to withdraw consent** – withdraw it at any time without affecting prior lawfulness.
 
         To exercise any of these rights, contact me at [${site.contactEmail}](mailto:${site.contactEmail}). I will respond within **30 days**.
-
         If you believe your rights have been violated, you have the right to lodge a complaint with your national data protection authority.
       `
     }
@@ -380,7 +378,6 @@ export const cookiePolicy = {
       heading: '2. Cookies I Use',
       content: dedent`
         This application uses **only strictly necessary cookies**, specifically session cookies issued by the authentication provider (Supabase).
-
         These cookies are essential to maintain your logged-in state securely. Without them, you would not be able to sign in or access your dashboard.
 
         > No cookies are set before you actively log in.
@@ -390,7 +387,6 @@ export const cookiePolicy = {
       heading: '3. Local Storage',
       content: dedent`
         I use your browser's **Local Storage** solely to remember UI preferences, such as your selected Light or Dark mode.
-
         This data is stored only on your device and is **never transmitted** to my server or to any third party.
       `
     },
@@ -412,7 +408,6 @@ export const cookiePolicy = {
       heading: '5. Legal Basis and Consent',
       content: dedent`
         Strictly necessary cookies are **exempt from consent requirements** under the EU ePrivacy Directive and national implementations (such as the Italian Cookie Law), as they are technically indispensable for the service to function.
-
         Because I use no non-essential cookies, **no cookie consent banner is required**. This policy serves as the required prior disclosure of cookie usage.
       `
     },

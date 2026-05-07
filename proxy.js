@@ -65,8 +65,8 @@ export async function proxy(request) {
     '/signup',
     '/_next',
     '/api/calendar',
-    '/privacy',
-    '/cookies'
+    '/policies/privacy',
+    '/policies/cookies'
   ];
 
   const isPublicPage =
